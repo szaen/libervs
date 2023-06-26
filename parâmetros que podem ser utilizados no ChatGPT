@@ -1,0 +1,21 @@
+Aqui estão todos os parâmetros que podem ser utilizados no ChatGPT, juntamente com uma breve explicação sobre o uso de cada um:
+
+"temperature" (temperatura) - Intervalo de valores: de 0,0 a 1,0
+A temperatura controla a aleatoriedade das respostas do modelo. Valores mais baixos (próximos de 0,0) geram respostas mais determinísticas e conservadoras, enquanto valores mais altos (próximos de 1,0) produzem respostas mais diversas e criativas.
+
+"max_tokens" (máximo de tokens) - Intervalo de valores: qualquer número inteiro positivo
+Esse parâmetro define o limite máximo de tokens na resposta do modelo. É útil para controlar o tamanho das respostas, evitando que sejam muito longas.
+
+"top_p" (top_p) - Intervalo de valores: de 0,0 a 1,0
+O top_p, também conhecido como "nucleus sampling" ou "sampling com truncamento", controla a diversidade das respostas. Ele define uma probabilidade acumulada para as palavras durante a geração do texto, cortando as opções quando essa probabilidade acumulada atinge o valor definido.
+
+"frequency_penalty" (penalidade de frequência) - Intervalo de valores: qualquer número real não negativo
+A penalidade de frequência controla o quanto o modelo evita repetir as mesmas palavras em suas respostas. Um valor maior penaliza mais as palavras repetidas, enquanto um valor menor permite mais repetições.
+
+"presence_penalty" (penalidade de presença) - Intervalo de valores: qualquer número real não negativo
+A penalidade de presença incentiva ou desencoraja o modelo a mencionar certos temas ou palavras em suas respostas. Um valor maior incentiva a menção desses temas ou palavras, enquanto um valor menor desencoraja.
+
+"stop_sequence" (sequência de parada) - String
+A sequência de parada é usada para indicar ao modelo que pare de gerar texto quando essa sequência é encontrada. É útil para controlar o momento em que a resposta deve ser interrompida.
+
+Esses são todos os parâmetros disponíveis no ChatGPT que podem ser utilizados para personalizar e ajustar a geração de texto de acordo com as necessidades e preferências do usuário.
