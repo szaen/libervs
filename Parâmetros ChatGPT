@@ -1,0 +1,649 @@
+
+"model": Especifica o modelo que você deseja utilizar. No caso do ChatGPT, o modelo padrão é o "gpt-3.5-turbo".
+
+"messages": É uma lista de objetos que representam as mensagens da conversa. Cada objeto possui duas propriedades: "role" (que pode ser "system", "user" ou "assistant") e "content" (que contém o texto da mensagem).
+
+"temperature": Controla a aleatoriedade das respostas geradas. Um valor mais baixo, como 0.2, resulta em respostas mais determinísticas, enquanto um valor mais alto, como 0.8, torna as respostas mais aleatórias.
+
+"max_tokens": Define o número máximo de tokens na resposta gerada. Isso ajuda a limitar o tamanho da resposta para se adequar às suas necessidades.
+
+"stop": É uma sequência de tokens que indica onde o modelo deve parar de gerar a resposta. Isso pode ser útil para controlar o tamanho ou a direção da resposta.
+
+"n": Especifica o número de respostas alternativas que você deseja gerar do modelo. Por padrão, é retornado apenas uma resposta.
+
+"timeout": Define o tempo máximo em segundos que o modelo tem para gerar uma resposta. Se o tempo limite for atingido, o modelo retornará as respostas geradas até o momento.
+
+"logprobs": Se definido como um valor positivo, o modelo retornará informações adicionais sobre a distribuição de probabilidade dos tokens gerados, o que pode ser útil para análise mais detalhada.
+
+"user": Permite personalizar as configurações do usuário, como definir o idioma da interface, o fuso horário e o formato da data.
+
+"presence_penalty": Controla a influência das mensagens do assistente anteriores na resposta atual. Um valor mais alto aumenta a probabilidade de o modelo ignorar as mensagens anteriores do assistente.
+
+"frequency_penalty": Controla a repetição de respostas do modelo. Um valor mais alto penaliza respostas que foram geradas recentemente.
+
+"best_of": Especifica o número de respostas geradas pelo modelo e retorna a melhor resposta com base em um critério de pontuação. Por exemplo, se "best_of" for definido como 3, o modelo gerará 3 respostas e retornará a resposta com a pontuação mais alta.
+
+"presence_threshold": Controla a sensibilidade do modelo às mensagens do assistente anteriores. Um valor mais alto significa que o modelo presta mais atenção às mensagens anteriores do assistente.
+
+"frequency_penalty": Controla a repetição de palavras ou frases nas respostas geradas pelo modelo. Um valor mais alto penaliza respostas que contêm repetições excessivas.
+
+"max_completions": Especifica o número máximo de respostas geradas pelo modelo. Pode ser útil quando você deseja limitar o número de respostas retornadas.
+
+"top_p": Também conhecido como "nucleus sampling" ou "repetição ponderada", controla a quantidade de probabilidade acumulada dos tokens considerados para geração de resposta. Um valor menor de "top_p" resulta em uma distribuição mais estreita de tokens considerados.
+
+"return_prompt": Se definido como true, a resposta gerada incluirá o prompt original juntamente com a resposta do modelo.
+
+"max_turns": Define o número máximo de rodadas (turnos) permitidos na conversa. Isso ajuda a controlar a extensão da interação com o modelo.
+
+"expand": Se definido como true, permite que o modelo expanda abreviações e acrônimos em suas respostas.
+
+"add_special_tokens": Se definido como true, garante que os tokens especiais necessários para a entrada e saída do modelo sejam adicionados automaticamente.
+
+"remove_repetition": Se definido como true, instrui o modelo a evitar respostas que contenham repetições excessivas de palavras ou frases.
+
+"engine": Especifica o mecanismo subjacente do modelo. O valor padrão é "davinci" para o GPT-3.5 Turbo.
+
+"user_token": Permite que você forneça um token personalizado que represente a entrada do usuário.
+
+"assistant_token": Permite que você forneça um token personalizado que represente a entrada do assistente.
+
+"background": Permite fornecer um contexto adicional ou informações de plano de fundo para a conversa. Isso ajuda o modelo a entender melhor o contexto da interação.
+
+"asynchronous": Se definido como true, permite chamadas de API assíncronas, o que significa que você pode enviar várias mensagens ao mesmo tempo para obter respostas mais rápidas.
+
+"beta": Permite que você teste versões beta de modelos mais recentes. Isso pode incluir recursos e melhorias experimentais.
+
+"debug": Se definido como true, ativa o modo de depuração, fornecendo informações adicionais de registro para ajudar na solução de problemas.
+
+"return_sensitive_data": Se definido como true, instrui o modelo a retornar dados sensíveis na resposta. Isso pode ser útil para depurar problemas específicos.
+
+"max_history": Define o número máximo de mensagens anteriores a serem consideradas no histórico. Isso permite controlar o tamanho do contexto que o modelo analisa.
+
+"user_id": Permite associar um ID personalizado ao usuário da conversa. Isso pode ser útil para rastrear e manter o contexto entre diferentes interações.
+
+"assistant_id": Permite associar um ID personalizado ao assistente da conversa. Isso ajuda a manter a consistência e a continuidade nas respostas do assistente.
+
+"suppress_warning": Se definido como true, suprime avisos específicos do modelo para evitar que sejam exibidos nas respostas.
+
+"mode": Especifica o modo de funcionamento do modelo. Por exemplo, "completion" é o modo padrão, mas você também pode usar "davinci" para acessar recursos adicionais.
+
+"davinci": Permite o acesso ao mecanismo GPT-3.5 original, oferecendo um modelo mais poderoso e detalhado.
+
+"time_zone": Define o fuso horário do usuário para lidar com questões relacionadas ao tempo.
+
+"external_model": Permite chamar modelos externos personalizados dentro da conversa. Isso pode ampliar as capacidades do ChatGPT ao integrar outros modelos especializados.
+
+"return_html": Se definido como true, permite que a resposta gerada pelo modelo seja retornada em formato HTML.
+
+"tokenizer": Permite especificar um tokenizador personalizado para pré-processar o texto de entrada e saída. Isso pode ser útil se você estiver usando um tokenizador específico para sua aplicação.
+
+"output_format": Define o formato de saída desejado. Por exemplo, você pode escolher entre "text" para obter o texto da resposta ou "json" para obter uma estrutura de resposta JSON.
+
+"expand_personality": Se definido como true, permite que o modelo forneça respostas mais personalizadas, levando em consideração as características de personalidade definidas para o assistente.
+
+"expand_context": Se definido como true, o modelo usará o contexto da conversa atual para fornecer respostas mais adequadas.
+
+"disable_model_prefix": Se definido como true, o modelo não usará um prefixo específico para suas respostas, permitindo uma geração de resposta mais livre.
+
+"add_user_messages": Permite adicionar mensagens adicionais do usuário à conversa para fornecer um contexto mais rico ao modelo.
+
+"disable_context_windowing": Se definido como true, o modelo não usará janelas de contexto para gerar respostas, permitindo uma resposta mais independente do contexto anterior.
+
+"user_persona": Permite especificar uma persona personalizada para o usuário, fornecendo características e comportamentos específicos para a interação.
+
+"assistant_persona": Permite especificar uma persona personalizada para o assistente, ajudando a moldar suas respostas de acordo com uma personalidade definida.
+
+"language": Especifica o idioma do texto de entrada e saída. O padrão é "en" para inglês, mas você pode definir outros idiomas, como "pt" para português.
+
+"verbosity": Controla o nível de detalhes e quantidade de informações nas respostas do modelo. Um valor maior aumenta a quantidade de informações fornecidas.
+
+"instruct": Permite fornecer instruções ou diretrizes adicionais para o modelo antes de gerar a resposta. Isso pode ajudar a orientar o comportamento do modelo de forma mais específica.
+
+"learning_rate": Define a taxa de aprendizado do modelo. Um valor mais alto pode resultar em respostas mais rápidas, mas menos precisas, enquanto um valor mais baixo pode levar a respostas mais precisas, porém mais lentas.
+
+"decay_rate": Controla a taxa de decaimento da resposta ao longo do tempo. Um valor mais alto indica que a influência das mensagens anteriores diminui mais rapidamente.
+
+"decay": Define a taxa de decaimento da probabilidade da resposta do modelo ao longo do tempo. Um valor mais alto indica uma diminuição mais rápida na probabilidade da resposta.
+
+"language_model": Permite especificar um modelo de linguagem personalizado para usar durante a interação. Isso pode ser útil se você tiver treinado um modelo personalizado.
+
+"emotion": Permite especificar uma emoção para a resposta do assistente, ajudando a moldar o tom ou o sentimento da interação.
+
+"style": Permite especificar um estilo de escrita para o assistente, como "formal" ou "informal", influenciando o tom e a escolha das palavras.
+
+"temperature": Controla a aleatoriedade das respostas geradas pelo modelo. Um valor mais alto, como 0,8, resulta em respostas mais aleatórias, enquanto um valor mais baixo, como 0,2, produz respostas mais determinísticas.
+
+"max_new_tokens": Define o número máximo de tokens adicionais permitidos em uma resposta gerada. Isso pode ajudar a controlar o tamanho da resposta e evitar respostas muito longas.
+
+"stop_sequences": Permite especificar sequências de parada personalizadas que indicam ao modelo quando parar de gerar texto. Isso pode ser útil para controlar o comprimento da resposta ou limitar o tipo de informação gerada.
+
+"user_ranking": Se definido como true, permite que o modelo classifique várias opções de resposta com base em sua relevância. Isso pode ser útil quando você deseja obter uma resposta classificada pelo modelo.
+
+"model_ranking": Se definido como true, permite que o modelo classifique várias opções de resposta com base em sua preferência. Isso pode ser útil quando você deseja obter uma resposta que o modelo considera a melhor opção.
+
+"knowledge_cutoff": Permite definir um limite de conhecimento para o modelo, especificando uma data de corte após a qual o modelo não possui conhecimento atualizado.
+
+"model": Permite escolher um modelo específico a ser usado, como "gpt3.5-turbo" ou um modelo personalizado treinado por você.
+
+"temperature_decay_rate": Controla a taxa de decaimento da temperatura ao longo do tempo durante a geração de respostas. Um valor mais alto indica um decaimento mais lento.
+
+"log_level": Especifica o nível de detalhes dos registros de log fornecidos pelo modelo. Valores possíveis incluem "info", "warning", "error" e "debug".
+
+"max_tokens_per_message": Define o número máximo de tokens permitidos por mensagem individual. Isso ajuda a evitar mensagens muito longas que possam exceder o limite do modelo.
+
+"num_return_sequences": Especifica o número de sequências de resposta que o modelo deve gerar. Isso pode ser útil quando você deseja obter várias respostas alternativas.
+
+"best_of": Define o número de sequências geradas pelo modelo e retorna a melhor sequência com base em uma métrica de pontuação. Isso permite obter a resposta mais adequada entre várias opções geradas.
+
+"top_p": Controla a probabilidade cumulativa máxima usada para gerar tokens durante a geração de respostas. Isso ajuda a limitar a diversidade das respostas geradas.
+
+"n": Especifica o valor de "n" para a gramática N-gram utilizada pelo modelo. Valores maiores podem melhorar a coesão e a fluidez das respostas, mas aumentam a complexidade computacional.
+
+"logprobs": Se definido como true, a resposta do modelo incluirá informações de logprobs, fornecendo a probabilidade de cada token gerado.
+
+"stop_sequence": Permite especificar uma sequência personalizada que indica ao modelo quando parar de gerar texto. Isso pode ser útil para controlar o comprimento da resposta ou limitar o tipo de informação gerada.
+
+"presence_penalty": Controla a penalidade aplicada pelo modelo com base na presença de tokens específicos no prompt. Isso ajuda a influenciar a geração de respostas em relação a determinados tópicos ou palavras-chave.
+
+"frequency_penalty": Controla a penalidade aplicada pelo modelo com base na frequência de tokens já gerados. Isso ajuda a evitar a repetição excessiva de palavras ou frases.
+
+"use_davinci": Se definido como true, permite usar o mecanismo GPT-3.5 "davinci", que oferece recursos adicionais e maior capacidade de processamento.
+
+"max_completions": Especifica o número máximo de completions que o modelo deve retornar. Isso é útil quando você deseja obter várias opções de resposta para escolher.
+
+"context": Permite especificar o contexto da conversa anterior ao iniciar uma nova interação. Isso é útil para retomar uma conversa anterior ou fornecer um contexto inicial para a interação.
+
+"max_turns": Define o número máximo de turnos de conversa permitidos durante a interação. Isso pode ajudar a limitar a duração da interação ou controlar o número de trocas entre o usuário e o assistente.
+
+"model_version": Permite especificar uma versão específica do modelo a ser utilizada. Isso é útil se houver versões diferentes disponíveis e você quiser garantir a consistência nos resultados.
+
+"history_separator": Define o separador utilizado para concatenar as mensagens do histórico de conversa. Pode ser um caractere ou uma sequência de caracteres.
+
+"show_trace": Se definido como true, exibe informações detalhadas de rastreamento durante a interação com o modelo. Isso pode ser útil para fins de depuração e análise.
+
+"history_append": Permite anexar mensagens adicionais ao histórico de conversa antes de gerar uma resposta. Isso pode ser útil para adicionar contexto ou informações relevantes à interação.
+
+"temperature_decay": Controla o decaimento da temperatura durante a geração de respostas. Um valor maior indica um decaimento mais lento da temperatura.
+
+"token_limit": Define o limite máximo de tokens permitidos em uma resposta gerada pelo modelo. Isso ajuda a controlar o tamanho da resposta e evitar respostas muito longas.
+
+"retrieval_mode": Permite especificar o modo de recuperação de informações do modelo. Isso pode ser útil quando o modelo precisa consultar uma base de conhecimento externa para obter informações relevantes.
+
+"output_scores": Se definido como true, a resposta do modelo incluirá pontuações atribuídas a cada token gerado. Isso pode ajudar a avaliar a confiança ou relevância de cada token.
+
+"expand_n": Controla o valor de "n" para a expansão de gramática N-gram. Valores maiores podem aumentar a diversidade e criatividade das respostas geradas, mas também podem resultar em respostas menos coesas.
+
+"use_persona": Permite especificar uma persona personalizada para o assistente, fornecendo características, traços de personalidade ou histórias de fundo que influenciam suas respostas.
+
+"persona_separator": Define o separador utilizado para separar as informações da persona do restante do prompt. Pode ser um caractere ou uma sequência de caracteres.
+
+"safe_mode": Se definido como true, aplica restrições adicionais ao modelo para evitar a geração de conteúdo inadequado ou ofensivo.
+
+"fallback_responses": Permite especificar respostas de fallback predefinidas que o modelo pode usar quando não consegue gerar uma resposta adequada.
+
+"max_time": Define o tempo máximo permitido para a geração de uma resposta pelo modelo. Isso pode ser útil para limitar o tempo de resposta e evitar atrasos excessivos.
+
+"stream": Se definido como true, permite a geração de respostas em tempo real à medida que o modelo vai gerando os tokens. Isso pode ser útil para obter respostas mais rápidas e interativas.
+
+"nucleus_sampling": Se definido como true, a geração de tokens utiliza o método de amostragem Nucleus (também conhecido como amostragem de nuvem de palavras-chave). Isso ajuda a controlar a diversidade das respostas geradas.
+
+"use_customization": Permite utilizar recursos de personalização específicos do modelo, como fornecer exemplos de entrada e saída para ajustar o comportamento do modelo de acordo com suas preferências.
+
+"max_history": Define o número máximo de turnos anteriores a serem considerados no histórico de conversa. Isso pode ajudar a limitar a extensão do contexto considerado pelo modelo.
+
+"max_beam_search": Define o número máximo de ramos a serem considerados durante a busca em feixe (beam search). Isso afeta a diversidade e a qualidade das respostas geradas.
+
+"context_padding": Define o tamanho do preenchimento (padding) aplicado ao contexto da conversa. Isso pode ser útil para garantir que o modelo leve em consideração um contexto mais amplo durante a geração de respostas.
+
+"stop_sequence_token": Permite especificar um token personalizado que indica ao modelo quando parar de gerar texto. Isso pode ser útil para definir uma sequência específica que encerra a resposta.
+
+"num_beams": Define o número de ramos a serem considerados durante a busca em feixe (beam search). Um valor maior aumenta a diversidade das respostas geradas, mas também aumenta a carga computacional.
+
+"output_hidden_states": Se definido como true, a resposta do modelo incluirá estados ocultos adicionais, o que pode ser útil para fins de análise e entendimento interno do modelo.
+
+"output_attentions": Se definido como true, a resposta do modelo incluirá informações de atenção, revelando quais partes do contexto foram mais relevantes para a geração da resposta.
+
+"output_past": Se definido como true, a resposta do modelo incluirá informações sobre o estado passado, permitindo retomar a conversa a partir de um ponto específico.
+
+"beam_search_strategy": Define a estratégia de busca em feixe (beam search) a ser utilizada. Opções comuns incluem "greedy" (ganancioso) e "diverse_beam" (feixe diversificado).
+
+"beam_penalty": Controla a penalidade aplicada aos ramos durante a busca em feixe (beam search). Isso ajuda a equilibrar a exploração (diversidade) e a explotação (qualidade) das respostas geradas.
+
+"no_repeat_ngram_size": Define o tamanho do N-grama para evitar repetições na geração de tokens. Isso ajuda a evitar respostas que contenham sequências repetitivas.
+
+"use_cross_model": Permite a utilização de vários modelos em conjunto para obter respostas. Isso pode ajudar a aproveitar diferentes modelos treinados em domínios específicos ou com habilidades diferentes.
+
+"cross_model_weights": Define os pesos atribuídos a cada modelo durante o uso de vários modelos. Isso influencia a contribuição de cada modelo na geração da resposta final.
+
+"temperature": Controla a suavização da distribuição de probabilidade durante a geração de tokens. Um valor mais alto resulta em respostas mais aleatórias, enquanto um valor mais baixo resulta em respostas mais determinísticas.
+
+"repetition_penalty": Controla a penalidade aplicada a tokens repetidos durante a geração de respostas. Isso ajuda a evitar a repetição excessiva de palavras ou frases sem perder a fluidez.
+
+"pad_token_id": Define o token de preenchimento (padding) a ser utilizado. Isso é útil quando você precisa lidar com sequências de comprimentos variáveis durante a geração de respostas.
+
+"output_log_probs": Se definido como true, a resposta do modelo incluirá as probabilidades de log para cada token gerado. Isso pode ser útil para análise e cálculos adicionais.
+
+"temperature_scaling": Controla o escalonamento da temperatura aplicado durante a geração de tokens. Isso permite ajustar a diversidade das respostas geradas de forma mais granular.
+
+"stop_sequence_id": Permite especificar um ID personalizado para o token que indica ao modelo quando parar de gerar texto. Isso é útil quando você deseja usar um token personalizado como sinal de parada.
+
+"bad_words_ids": Permite fornecer uma lista de IDs de tokens que devem ser evitados durante a geração de respostas. Isso ajuda a evitar a inclusão de palavras indesejadas ou inapropriadas nas respostas.
+
+"early_stopping": Se definido como true, o modelo interromperá a geração de tokens assim que encontrar um token de parada, mesmo que ainda haja tokens disponíveis no prompt.
+
+"top_k": Controla o número máximo de tokens considerados durante a amostragem com a técnica top-k. Isso influencia a diversidade das respostas geradas.
+
+"top_p": Controla a probabilidade acumulada máxima durante a amostragem com a técnica top-p (também conhecida como amostragem de nuvem de palavras-chave). Isso ajuda a controlar a diversidade das respostas geradas.
+
+"length_penalty": Controla a penalidade aplicada ao comprimento das respostas durante a geração de tokens. Isso ajuda a equilibrar a preferência por respostas mais curtas ou mais longas.
+
+"no_sample": Se definido como true, a geração de tokens será feita apenas com a técnica de amostragem argmax, resultando em respostas determinísticas.
+
+"max_new_tokens": Define o número máximo de tokens novos permitidos em uma resposta gerada. Isso ajuda a controlar o grau de expansão ou detalhamento nas respostas.
+
+min_length": Define o comprimento mínimo da resposta gerada pelo modelo. Isso garante que a resposta tenha um mínimo de tokens, evitando respostas muito curtas ou incompletas.
+
+"max_length": Define o comprimento máximo da resposta gerada pelo modelo. Isso ajuda a controlar o tamanho das respostas e evitar respostas muito longas ou truncadas.
+
+"dataloader_num_workers": Define o número de processadores de dados (data loaders) a serem utilizados durante o treinamento ou inferência do modelo. Isso pode acelerar o processo, especialmente em sistemas com múltiplos núcleos de processamento.
+
+"vocab_size": Define o tamanho do vocabulário do modelo, ou seja, o número total de tokens exclusivos que o modelo pode gerar. Isso pode ser útil para personalizar o vocabulário de acordo com as necessidades do aplicativo.
+
+"model_type": Especifica o tipo de modelo a ser utilizado, como "gpt2" ou "gpt3". Isso influencia a arquitetura e o comportamento do modelo.
+
+"num_return_sequences": Define o número de sequências de respostas a serem retornadas pelo modelo. Isso permite obter várias respostas alternativas em uma única chamada.
+
+"attention_mask": Permite fornecer uma máscara de atenção personalizada para influenciar quais partes do contexto são consideradas durante a geração de respostas. Isso é útil para destacar ou ignorar determinadas informações.
+
+"do_sample": Se definido como true, a geração de tokens utilizará a técnica de amostragem, permitindo respostas mais diversas e criativas.
+
+"output_scores": Se definido como true, a resposta do modelo incluirá os escores (pontuações) associados a cada token gerado. Isso pode ser útil para análise e classificação posterior.
+
+"prefix": Permite fornecer um prefixo personalizado que será considerado durante a geração de respostas. Isso ajuda a orientar o modelo para responder de acordo com o contexto fornecido.
+
+"num_beams": Define o número de feixes a serem considerados durante a busca em feixe. Isso afeta a diversidade e a qualidade das respostas geradas.
+
+"diversity_penalty": Controla a penalidade aplicada à diversidade das respostas geradas durante a busca em feixe. Isso ajuda a equilibrar a preferência por respostas mais diversas ou mais semelhantes.
+
+"forced_bos_token_id": Permite especificar um token de início forçado personalizado para a geração de respostas. Isso ajuda a iniciar a resposta com um token específico.
+
+"forced_eos_token_id": Permite especificar um token de fim forçado personalizado para a geração de respostas. Isso ajuda a definir um ponto de parada claro para a resposta.
+
+"remove_invalid_values": Se definido como true, o modelo removerá automaticamente valores inválidos ou indesejados durante a geração de respostas.
+
+"attention_dropout": Define a taxa de dropout a ser aplicada às camadas de atenção durante o treinamento do modelo. Isso ajuda a regularizar o modelo e evitar o overfitting.
+
+"hidden_dropout": Define a taxa de dropout a ser aplicada às camadas ocultas durante o treinamento do modelo. Isso ajuda a evitar o overfitting e melhorar a generalização.
+
+"layer_norm_eps": Define o epsilon utilizado na camada de normalização de cada camada do modelo. Isso afeta a estabilidade e a precisão numérica das operações.
+
+"gradient_checkpointing": Se definido como true, utiliza a técnica de "gradient checkpointing" durante o treinamento do modelo. Isso ajuda a reduzir o uso de memória, especialmente em modelos com muitas camadas.
+
+"tie_word_embeddings": Se definido como true, as incorporações de palavras (word embeddings) compartilham os mesmos pesos entre a camada de entrada e a camada de saída. Isso pode ajudar a reduzir a quantidade de parâmetros necessários.
+
+"initializer_range": Define o intervalo de inicialização para os pesos do modelo. Isso afeta a escala inicial dos parâmetros e pode influenciar o treinamento e a convergência do modelo.
+
+"gradient_accumulation_steps": Define o número de etapas de acumulação de gradiente antes de atualizar os pesos do modelo. Isso pode ajudar a economizar memória durante o treinamento em dispositivos com recursos limitados.
+
+"max_position_embeddings": Define o comprimento máximo das sequências de tokens que o modelo pode processar. Isso afeta a capacidade do modelo de lidar com sequências longas.
+
+"output_attentions": Se definido como true, a resposta do modelo incluirá as atenções calculadas durante a geração dos tokens. Isso pode ser útil para análise e visualização das interações entre os tokens.
+
+"output_hidden_states": Se definido como true, a resposta do modelo incluirá os estados ocultos de todas as camadas durante a geração dos tokens. Isso pode ser útil para análise e processamento posterior das informações intermediárias do modelo.
+
+"vocab_transform": Permite fornecer uma transformação personalizada para o vocabulário do modelo. Isso pode ser útil para aplicar técnicas como subpalavra (subword) ou tokenização especializada.
+
+"n_ctx": Define o tamanho do contexto considerado pelo modelo. Isso afeta a janela de contexto disponível para o modelo gerar respostas com base no histórico.
+
+"bos_token_id": Define o token de início de sequência personalizado a ser usado durante a geração de respostas. Isso ajuda a iniciar a resposta com um token específico.
+
+"eos_token_id": Define o token de fim de sequência personalizado a ser usado durante a geração de respostas. Isso ajuda a definir um ponto de parada claro para a resposta.
+
+"pad_token_id": Define o token de preenchimento personalizado a ser usado durante a geração de respostas. Isso ajuda a alinhar as sequências geradas com um valor de preenchimento específico.
+
+"gradient_clipping": Define o valor máximo para o gradiente durante o treinamento do modelo. Isso ajuda a evitar que os gradientes se tornem muito grandes e causem instabilidade no treinamento.
+
+"early_stopping": Se definido como true, interrompe o treinamento do modelo mais cedo com base em critérios como a perda de validação não melhorar por um determinado número de épocas.
+
+"learning_rate": Define a taxa de aprendizado a ser usada durante o treinamento do modelo. Isso controla o tamanho dos ajustes feitos nos pesos do modelo em cada etapa de treinamento.
+
+"weight_decay": Define a taxa de decaimento dos pesos durante o treinamento do modelo. Isso ajuda a regularizar o modelo e evitar o overfitting.
+
+"label_smoothing": Define o valor de suavização dos rótulos durante o treinamento do modelo. Isso ajuda a suavizar a distribuição de probabilidade das classes durante a aprendizagem.
+
+"optimizer": Define o otimizador a ser usado durante o treinamento do modelo, como Adam, SGD, entre outros. Isso afeta a forma como os pesos do modelo são atualizados com base nos gradientes calculados.
+
+"scheduler": Define o agendador de taxa de aprendizado a ser usado durante o treinamento do modelo. Isso controla como a taxa de aprendizado é ajustada ao longo do tempo durante o treinamento.
+
+"warmup_steps": Define o número de etapas de aquecimento (warmup steps) durante o treinamento do modelo. Isso controla o aumento gradual da taxa de aprendizado no início do treinamento.
+
+"adam_epsilon": Define o valor epsilon a ser usado pelo otimizador Adam. Isso afeta a estabilidade e a precisão numérica das operações durante o treinamento.
+
+"num_warmup_steps": Define o número de etapas de aquecimento (warmup steps) específicas para o agendador de taxa de aprendizado. Isso controla a taxa de aprendizado durante a fase de aquecimento.
+
+"num_train_epochs": Define o número de épocas de treinamento a serem executadas. Uma época representa uma passagem completa por todo o conjunto de dados de treinamento.
+
+"per_device_train_batch_size": Define o tamanho do lote de treinamento por dispositivo. Isso determina quantos exemplos de treinamento são processados em paralelo em cada etapa de treinamento.
+
+"per_device_eval_batch_size": Define o tamanho do lote de avaliação (validação) por dispositivo. Isso determina quantos exemplos de validação são processados em paralelo durante a avaliação do modelo.
+
+"logging_dir": Define o diretório onde os logs de treinamento serão armazenados. Isso inclui informações como métricas de perda, acurácia, entre outros.
+
+"save_total_limit": Define o número máximo de checkpoints que serão salvos durante o treinamento. Isso controla a quantidade de espaço em disco utilizada pelos checkpoints salvos.
+
+"save_steps": Define a frequência com que os checkpoints são salvos durante o treinamento, em número de etapas. Isso controla com que frequência o modelo é salvo para possibilitar a continuação do treinamento.
+
+"logging_steps": Define a frequência com que os logs de treinamento são registrados, em número de etapas. Isso controla com que frequência as métricas e informações de treinamento são registradas.
+
+"evaluation_strategy": Define a estratégia de avaliação durante o treinamento, como "steps" (em número de etapas) ou "epoch" (em número de épocas). Isso determina quando ocorre a avaliação do modelo.
+
+"dataloader_num_workers": Define o número de workers (trabalhadores) utilizados para carregar os dados durante o treinamento. Isso ajuda a acelerar o processo de carregamento de dados.
+
+"prediction_loss_only": Se definido como true, durante o treinamento, apenas a perda de predição é calculada e registrada. Isso pode ajudar a economizar memória e recursos computacionais.
+
+"model_name_or_path": Define o nome ou o caminho do modelo pré-treinado a ser utilizado. Isso permite carregar modelos pré-treinados de diferentes tamanhos e arquiteturas.
+
+"overwrite_output_dir": Se definido como true, sobrescreve o diretório de saída (output directory) caso já exista. Isso evita a criação de diretórios duplicados durante o treinamento.
+
+"overwrite_cache": Se definido como true, sobrescreve o cache dos dados de treinamento e validação. Isso evita o uso de dados em cache antigos e garante a atualização dos dados durante o treinamento.
+
+"no_cuda": Se definido como true, desativa o uso da GPU para o treinamento e inferência. Isso é útil quando não há GPU disponível ou quando se deseja usar apenas a CPU.
+
+"local_rank": Define o índice do dispositivo local quando se treina em várias GPUs ou dispositivos. Isso ajuda a sincronizar o treinamento entre os dispositivos.
+
+"do_sample": Se definido como true, permite que o modelo faça amostragem durante a geração de respostas. Isso significa que o modelo pode gerar diferentes respostas em cada interação, em vez de sempre produzir a resposta mais provável.
+
+"temperature": Define a temperatura da distribuição de amostragem durante a geração de respostas. Valores mais altos aumentam a aleatoriedade e diversidade das respostas, enquanto valores mais baixos resultam em respostas mais determinísticas.
+
+"top_k": Restringe a amostragem durante a geração de respostas aos tokens com as maiores probabilidades condicionais. Isso limita o conjunto de tokens considerados na amostragem.
+
+"top_p": Restringe a amostragem durante a geração de respostas aos tokens com as maiores probabilidades acumuladas até atingir uma probabilidade cumulativa definida por "top_p". Isso controla a diversidade da resposta gerada.
+
+"repetition_penalty": Penaliza a repetição de tokens durante a geração de respostas. Valores mais altos incentivam o modelo a evitar repetições excessivas.
+
+"max_length": Define o comprimento máximo da sequência de saída durante a geração de respostas. Isso limita o número de tokens na resposta gerada.
+
+"min_length": Define o comprimento mínimo da sequência de saída durante a geração de respostas. Isso garante que a resposta gerada tenha um tamanho mínimo.
+
+"num_beams": Controla o número de feixes (beams) a serem usados durante a geração de respostas. Isso permite que o modelo explore várias opções de resposta simultaneamente.
+
+"length_penalty": Penaliza ou recompensa respostas mais longas durante a geração. Valores menores incentivam respostas mais curtas, enquanto valores maiores incentivam respostas mais longas.
+
+"no_repeat_ngram_size": Define o tamanho máximo de n-gramas consecutivos repetidos durante a geração de respostas. Isso evita que o modelo gere sequências repetitivas.
+
+"early_stopping": Se definido como true, ativa o critério de parada antecipada durante o treinamento. Isso interrompe o treinamento caso a métrica de validação deixe de melhorar.
+
+"label_smoothing": Aplica suavização nas etiquetas (rótulos) durante o treinamento. Isso ajuda a regularizar o modelo e evitar que ele se torne muito confiante em previsões específicas.
+
+"learning_rate": Define a taxa de aprendizado utilizada durante o treinamento. Isso controla o tamanho dos ajustes feitos nos pesos do modelo a cada iteração.
+
+"weight_decay": Aplica decaimento de peso durante o treinamento, reduzindo gradualmente os valores dos pesos do modelo. Isso ajuda a evitar overfitting e a regularizar o modelo.
+
+"gradient_accumulation_steps": Controla o número de etapas de acúmulo de gradiente antes de realizar a atualização dos pesos do modelo. Isso é útil quando a memória do dispositivo é limitada.
+
+"optimizer": Define o otimizador a ser utilizado durante o treinamento, como "adam", "sgd", entre outros. O otimizador controla o algoritmo usado para ajustar os pesos do modelo.
+
+"scheduler": Define o agendador de taxa de aprendizado a ser utilizado durante o treinamento. Um agendador ajusta a taxa de aprendizado ao longo do tempo para melhorar o desempenho do modelo.
+
+"warmup_steps": Define o número de etapas de aquecimento (warm-up) durante o treinamento. Durante esse período, a taxa de aprendizado aumenta gradualmente para estabilizar o treinamento inicial.
+
+"gradient_clipping": Controla o limite superior para o valor absoluto dos gradientes durante o treinamento. Isso evita que os gradientes se tornem muito grandes e causem problemas de explosão gradiente.
+
+"dropout": Define a taxa de dropout a ser aplicada durante o treinamento. O dropout é uma técnica de regularização que desativa aleatoriamente uma proporção de neurônios em cada passagem para evitar overfitting.
+
+"num_train_epochs": Define o número de épocas de treinamento, ou seja, o número de vezes que o modelo passará pelos dados de treinamento completo.
+
+"batch_size": Define o tamanho do lote (batch size) utilizado durante o treinamento. O lote é um conjunto de exemplos de treinamento processados em paralelo pelo modelo.
+
+"gradient_accumulation_steps": Controla o número de etapas de acúmulo de gradiente antes de realizar a atualização dos pesos do modelo. Isso é útil quando a memória do dispositivo é limitada.
+
+"early_stopping": Se definido como true, ativa o critério de parada antecipada durante o treinamento. Isso interrompe o treinamento caso a métrica de validação deixe de melhorar.
+
+"logging_dir": Define o diretório onde os logs de treinamento serão armazenados. Isso inclui informações como perda (loss), métricas de avaliação e histórico de treinamento.
+
+"output_dir": Define o diretório de saída onde os resultados do treinamento serão armazenados, como os modelos salvos e outros arquivos gerados.
+
+"logging_steps": Define a frequência com que os logs de treinamento são gravados. Isso determina em quantas etapas de treinamento os logs são registrados.
+
+"save_steps": Define a frequência com que o modelo é salvo durante o treinamento. Isso determina em quantas etapas de treinamento o modelo é salvo.
+
+"eval_steps": Define a frequência com que a avaliação é realizada durante o treinamento. Isso determina em quantas etapas de treinamento a avaliação é executada para monitorar o desempenho do modelo.
+
+"logging_first_step": Se definido como true, registra os logs da primeira etapa de treinamento. Isso pode ser útil para obter informações imediatas sobre o progresso do treinamento.
+
+"save_total_limit": Define o número máximo de checkpoints salvos durante o treinamento. Isso limita a quantidade de espaço em disco ocupado pelos checkpoints salvos.
+
+"overwrite_output_dir": Se definido como true, permite que o diretório de saída seja sobrescrito se já existir. Isso evita a interrupção do treinamento devido a um diretório existente.
+
+"overwrite_cache": Se definido como true, permite que o cache seja sobrescrito se já existir. Isso é útil quando se deseja atualizar os dados de treinamento sem manter o cache anterior.
+
+"report_to": Define os destinos de relatório durante o treinamento, como "wandb" (para o Weights & Biases) ou "tensorboard" (para o TensorBoard). Isso permite o acompanhamento e visualização do treinamento.
+
+"dataloader_num_workers": Define o número de workers utilizados para carregar os dados durante o treinamento. Isso acelera o carregamento dos dados quando há múltiplos núcleos de CPU disponíveis.
+
+"dataloader_pin_memory": Se definido como true, fixa a memória do dispositivo para acelerar o carregamento dos dados durante o treinamento.
+
+"dataloader_timeout": Define o tempo máximo de espera para carregar os dados durante o treinamento. Isso evita que o treinamento fique bloqueado caso haja problemas no carregamento dos dados.
+
+"train_custom_parameters_only": Se definido como true, treina apenas os parâmetros personalizados adicionados ao modelo, mantendo os parâmetros pré-treinados fixos.
+
+"no_cuda": Se definido como true, desativa o uso de GPU para treinamento e executa o código apenas na CPU.
+
+"wandb_project": Define o projeto no Weights & Biases onde os registros e resultados do treinamento serão armazenados.
+
+"tensorboard_dir": Define o diretório onde os logs do TensorBoard serão armazenados. Isso permite a visualização e monitoramento do treinamento usando o TensorBoard.
+
+"save_strategy": Define a estratégia de salvamento dos modelos durante o treinamento. Pode ser configurado para salvar apenas o melhor modelo (melhor desempenho) ou todos os modelos.
+
+"num_gpus": Define o número de GPUs a serem usadas para o treinamento. Isso permite a distribuição de treinamento em várias GPUs.
+
+"num_tpu_cores": Define o número de núcleos de TPU (Tensor Processing Unit) a serem usados para o treinamento. Isso permite a execução em paralelo em vários núcleos de TPU.
+
+"gradient_accumulation_steps": Controla o número de etapas de acúmulo de gradiente antes de realizar a atualização dos pesos do modelo. Isso é útil quando há restrições de memória ou para simular um tamanho de lote maior.
+
+
+
+"learning_rate": Define a taxa de aprendizado a ser utilizada durante o treinamento. Isso determina o tamanho do passo na atualização dos pesos do modelo.
+
+"weight_decay": Define o valor de decaimento de peso (weight decay) a ser aplicado durante o treinamento. Isso ajuda a evitar overfitting, penalizando pesos maiores.
+
+"warmup_steps": Define o número de etapas de aquecimento (warm-up) durante o treinamento. Durante esse período, a taxa de aprendizado aumenta gradualmente para estabilizar o treinamento inicial.
+
+"adam_epsilon": Define o valor de epsilon a ser usado no otimizador Adam. Isso evita divisão por zero e estabiliza o cálculo dos gradientes.
+
+"max_grad_norm": Define o limite máximo para a norma do gradiente durante o treinamento. Isso ajuda a evitar gradientes muito grandes que possam causar instabilidade no treinamento.
+
+
+
+"adam_beta1": Define o valor de beta1 no otimizador Adam. Isso controla a taxa de decaimento exponencial para o cálculo do momento de primeira ordem.
+
+"adam_beta2": Define o valor de beta2 no otimizador Adam. Isso controla a taxa de decaimento exponencial para o cálculo do momento de segunda ordem.
+
+"adam_weight_decay": Define o valor de decaimento de peso específico para o otimizador Adam. Isso permite controlar o peso da penalidade de decaimento para esse otimizador.
+
+"sgd_momentum": Define o valor de momentum para o otimizador SGD (Stochastic Gradient Descent). Isso determina a contribuição relativa do momento anterior no cálculo da atualização dos pesos.
+
+"sgd_dampening": Define o valor de amortecimento (dampening) para o otimizador SGD. Isso controla a redução do momentum durante o treinamento.
+
+
+
+"sgd_nesterov": Se definido como true, ativa o uso do Nesterov momentum no otimizador SGD. Isso melhora a convergência do treinamento.
+
+"adafactor": Se definido como true, utiliza o otimizador Adafactor em vez do Adam. O Adafactor é um otimizador que combina características do Adam e do Adagrad, adaptando a taxa de aprendizado e o decaimento do momento.
+
+"adafactor_eps": Define o valor de epsilon para o otimizador Adafactor. Isso evita a divisão por zero e estabiliza os cálculos.
+
+"adafactor_clip_threshold": Define o limite máximo para o decaimento do momento no otimizador Adafactor. Isso controla o quão agressivamente o momento é atualizado.
+
+"adafactor_decay_rate": Define a taxa de decaimento do momento no otimizador Adafactor. Isso controla a rapidez com que o momento é reduzido ao longo do tempo.
+
+
+
+"early_stopping_patience": Define o número de épocas sem melhoria no desempenho do modelo antes de parar o treinamento antecipadamente. Isso ajuda a evitar o treinamento excessivo e economiza tempo de computação.
+
+"early_stopping_threshold": Define o limite mínimo de melhoria no desempenho do modelo para considerá-lo significativo durante o treinamento antecipado. Isso controla o critério de parada antecipada.
+
+"evaluation_strategy": Define a estratégia de avaliação do modelo durante o treinamento. Pode ser configurado para avaliar ao final de cada época, a cada intervalo de passos ou apenas no final do treinamento.
+
+"evaluate_during_training_steps": Define o número de passos de treinamento entre as avaliações do modelo durante o treinamento. Isso permite monitorar o desempenho do modelo ao longo do tempo.
+
+"evaluate_during_training_verbose": Se definido como true, exibe informações detalhadas sobre a avaliação do modelo durante o treinamento.
+
+
+
+"disable_tqdm": Se definido como true, desativa a exibição da barra de progresso durante o treinamento. Isso pode ser útil quando se deseja reduzir a saída visual durante o treinamento.
+
+"tqdm_kwargs": Permite fornecer argumentos personalizados para a configuração da barra de progresso durante o treinamento. Isso inclui opções como cor, largura da barra e estilo.
+
+"run_name": Define um nome personalizado para a execução do treinamento. Isso pode ser útil para identificar e diferenciar diferentes execuções ou experimentos.
+
+"logging_strategy": Define a estratégia de registro dos logs durante o treinamento. Pode ser configurado para registrar apenas informações essenciais, todos os detalhes ou apenas os erros.
+
+"logging_dir": Define o diretório onde os logs do treinamento serão armazenados. Isso inclui registros de métricas, informações de treinamento e registros de eventos.
+
+
+
+"report_to": Define as plataformas ou sistemas para os quais relatórios e métricas serão enviados durante o treinamento. Isso inclui opções como "wandb" (Weights & Biases) e "tensorboard".
+
+"experiment_name": Define o nome do experimento para os relatórios e métricas enviados para plataformas externas, como o Weights & Biases.
+
+"gradient_checkpointing": Se definido como true, utiliza a técnica de checkpointing de gradiente para economizar memória durante o treinamento. Isso pode ser útil quando a memória é limitada.
+
+"output_dir": Define o diretório de saída onde os modelos treinados e outros artefatos serão salvos. Isso inclui os checkpoints do modelo, métricas e outros arquivos relacionados ao treinamento.
+
+"overwrite_output_dir": Se definido como true, permite que o diretório de saída seja sobrescrito se já existir. Isso é útil para iniciar um novo treinamento e substituir treinamentos anteriores no mesmo diretório.
+
+
+
+"save_total_limit": Define o número máximo de checkpoints de modelo a serem salvos durante o treinamento. Isso controla a quantidade de espaço em disco utilizada pelos checkpoints salvos.
+
+"save_steps": Define o intervalo de passos de treinamento para salvar um checkpoint do modelo. Isso permite controlar com que frequência os checkpoints são salvos durante o treinamento.
+
+"save_strategy": Define a estratégia de salvamento dos checkpoints do modelo. Pode ser configurado para salvar apenas o melhor modelo, o último modelo ou todos os modelos.
+
+"save_optimizer": Se definido como true, salva também o estado do otimizador junto com o modelo durante o salvamento de checkpoints. Isso permite retomar o treinamento a partir de onde parou.
+
+"save_scheduler": Se definido como true, salva também o estado do agendador (scheduler) junto com o modelo durante o salvamento de checkpoints. Isso permite retomar o treinamento com o mesmo agendamento de taxa de aprendizado.
+
+
+
+"dataloader_num_workers": Define o número de workers a serem usados para carregar os dados durante o treinamento. Isso permite paralelizar a leitura dos dados e acelerar o processo de treinamento.
+
+"past_index": Define o índice do passado na entrada fornecida para o modelo. Isso é útil quando se utiliza um formato específico de entrada em que o histórico é passado como um item separado.
+
+"run_id": Define um ID personalizado para a execução do treinamento. Isso pode ser útil para identificar e diferenciar diferentes execuções ou experimentos.
+
+"disable_tensorboard": Se definido como true, desativa o uso do TensorBoard para visualização de métricas e outros registros durante o treinamento.
+
+"remove_unused_columns": Se definido como true, remove colunas não utilizadas dos dados de entrada durante o treinamento. Isso pode economizar memória e acelerar o processo de treinamento.
+
+
+
+
+"learning_rate": Define a taxa de aprendizado a ser usada durante o treinamento. Isso controla a velocidade de atualização dos pesos do modelo e afeta a velocidade e a qualidade do treinamento.
+
+"weight_decay": Define a taxa de decaimento de peso (weight decay) a ser aplicada durante o treinamento. Isso é usado para controlar a regularização dos pesos do modelo e evitar o overfitting.
+
+"gradient_accumulation_steps": Define o número de passos de treinamento a serem acumulados antes de atualizar os pesos do modelo. Isso é útil quando a memória é limitada e permite treinar com lotes maiores.
+
+"adam_epsilon": Define o valor de epsilon para evitar a divisão por zero no otimizador Adam. Isso é usado para estabilizar o cálculo do gradiente e melhorar a convergência do treinamento.
+
+"num_train_epochs": Define o número total de épocas (iterações completas dos dados de treinamento) durante o treinamento. Isso determina a quantidade de tempo que o modelo é exposto aos dados.
+
+"max_steps": Define o número máximo de passos de treinamento a serem executados. Isso é útil para controlar o tempo total de treinamento ou quando se deseja interromper o treinamento após um determinado número de passos.
+
+"warmup_steps": Define o número de passos de aquecimento (warm-up) a serem executados antes de atingir a taxa de aprendizado máxima. Isso é usado para aumentar gradualmente a taxa de aprendizado no início do treinamento.
+
+"gradient_clip_val": Define o valor máximo para o clip do gradiente durante o treinamento. Isso limita a magnitude do gradiente para evitar explosões ou desvanecimentos durante o treinamento.
+
+"adafactor_eps": Define o valor de epsilon para evitar a divisão por zero no otimizador Adafactor. Isso é usado para estabilizar o cálculo do gradiente e melhorar a convergência do treinamento.
+
+"adafactor_clip_threshold": Define o limite de clip do gradiente para o otimizador Adafactor. Isso controla a magnitude máxima do gradiente antes do clip.
+
+"adafactor_decay_rate": Define a taxa de decaimento para a média móvel do segundo momento no otimizador Adafactor. Isso controla a adaptatividade do otimizador.
+
+"adafactor_relative_step": Se definido como true, usa o passo relativo ao invés do passo absoluto no otimizador Adafactor. Isso permite um ajuste mais adaptativo da taxa de aprendizado.
+
+"adafactor_scale_parameter": Se definido como true, dimensiona os parâmetros do modelo no otimizador Adafactor. Isso melhora a adaptatividade do otimizador em modelos com diferentes escalas de parâmetros.
+
+"group_by_length": Se definido como true, agrupa os exemplos de treinamento com base no seu comprimento. Isso melhora a eficiência do treinamento, reduzindo o número de cálculos redundantes.
+
+"length_column_name": Define o nome da coluna que contém as informações de comprimento
+
+"sliding_window": Se definido como true, utiliza a técnica de janela deslizante durante o treinamento. Isso permite que o modelo veja partes diferentes do contexto em cada iteração.
+
+"preprocessing_num_workers": Define o número de workers a serem usados para pré-processamento dos dados durante o treinamento. Isso acelera o processo de pré-processamento, especialmente para conjuntos de dados grandes.
+
+"overwrite_cache": Se definido como true, sobrescreve o cache de dados pré-processados, se existir. Isso é útil quando se deseja forçar o pré-processamento novamente, mesmo que o cache já esteja presente.
+
+"predict_with_generate": Se definido como true, permite que o modelo faça previsões usando a geração de texto. Isso é útil para tarefas de geração de linguagem, como resumo de texto ou tradução.
+
+"generation_max_length": Define o comprimento máximo das sequências geradas pelo modelo durante a geração de texto. Isso limita o tamanho das respostas ou saídas geradas pelo modelo.
+
+"generation_min_length": Define o comprimento mínimo das sequências geradas pelo modelo durante a geração de texto. Isso controla a coesão e a completude das respostas ou saídas geradas.
+
+"generation_do_sample": Se definido como true, utiliza amostragem durante a geração de texto. Isso permite que o modelo produza saídas mais variadas e criativas.
+
+"generation_top_k": Define o valor de k para a amostragem de top-k durante a geração de texto. Isso controla a diversidade das palavras geradas pelo modelo.
+
+"generation_top_p": Define o valor de p para a amostragem de top-p (nucleus) durante a geração de texto. Isso controla a diversidade das palavras geradas pelo modelo.
+
+"generation_temperature": Define a temperatura para a amostragem durante a geração de texto. Valores mais baixos geram saídas mais determinísticas, enquanto valores mais altos geram saídas mais aleatórias.
+
+"generation_repetition_penalty": Define o fator de penalidade para repetição de palavras durante a geração de texto. Valores mais altos desencorajam o modelo a repetir palavras frequentemente.
+
+"generation_length_penalty": Define o fator de penalidade para comprimentos de sequências geradas durante a geração de texto. Isso controla a preferência por sequências mais curtas ou mais longas.
+
+"generation_num_beams": Define o número de feixes (beams) a serem usados durante a geração de texto. Isso permite que o modelo gere várias sequências candidatas simultaneamente.
+
+"generation_early_stopping": Se definido como true, aplica o critério de parada antecipada durante a geração de texto. Isso faz com que a geração pare assim que todos os feixes tenham atingido o fim de texto especial.
+
+"generation_no_repeat_ngram_size": Define o tamanho do n-grama para evitar repetições durante a geração de texto. Isso evita que o modelo repita as mesmas sequências de palavras.
+
+"tokenizer_name": Define o nome do tokenizador a ser usado durante a pré-processamento e a geração de texto. Isso permite selecionar um tokenizador específico para diferentes tarefas ou idiomas.
+
+"cache_dir": Define o diretório onde o cache dos dados pré-processados será salvo. Isso é útil para armazenar e reutilizar os dados pré-processados em treinamentos subsequentes.
+
+"use_auth_token": Se definido como true, utiliza um token de autenticação ao fazer solicitações à API do OpenAI. Isso permite acesso a recursos premium ou recursos adicionais da API.
+
+"output_dir": Define o diretório onde os modelos treinados e outros arquivos de saída serão salvos. Isso é útil para organizar e armazenar os resultados do treinamento de forma adequada.
+
+"prefix": Define um prefixo de texto a ser fornecido ao modelo durante a geração de texto. Isso permite iniciar a resposta com um contexto específico ou uma frase de introdução.
+
+"suffix": Define um sufixo de texto a ser adicionado à resposta gerada pelo modelo. Isso pode ser usado para adicionar informações adicionais à resposta ou finalizar a frase de forma adequada.
+
+"pad_token_id": Define o ID do token de preenchimento (pad token) usado durante o pré-processamento dos dados. Isso é necessário quando se trabalha com sequências de comprimento variável.
+
+"bos_token_id": Define o ID do token de início (beginning of sentence token) usado durante a pré-processamento dos dados. Isso marca o início de uma sequência de texto.
+
+"eos_token_id": Define o ID do token de fim (end of sentence token) usado durante o pré-processamento dos dados. Isso marca o fim de uma sequência de texto.
+
+"sep_token_id": Define o ID do token de separação usado durante o pré-processamento dos dados. Isso é útil para separar partes diferentes de uma sequência de texto.
+
+"cls_token_id": Define o ID do token de classificação usado durante o pré-processamento dos dados. Isso é usado em tarefas de classificação de texto para marcar o início da sequência.
+
+"mask_token_id": Define o ID do token de máscara usado durante o pré-processamento dos dados. Isso é usado em tarefas de preenchimento de lacunas (cloze-style) para ocultar parte do texto.
+
+"additional_special_tokens": Permite adicionar tokens especiais adicionais ao vocabulário do modelo. Isso é útil quando se deseja lidar com informações específicas ou tokens personalizados.
+
+"torchscript": Se definido como true, realiza a conversão do modelo para o formato TorchScript durante o salvamento. Isso permite carregar e executar o modelo de forma mais eficiente em um ambiente de produção.
+
+"tokenizer_class": Define a classe do tokenizador a ser usada. Isso permite selecionar um tokenizador personalizado ou uma implementação específica do tokenizador.
+
+"model_class": Define a classe do modelo a ser usada. Isso permite selecionar uma implementação específica do modelo, como GPT2, BERT, etc.
+
+"model_name_or_path": Define o nome ou o caminho para o modelo pré-treinado a ser carregado. Isso permite utilizar modelos pré-treinados fornecidos pela OpenAI ou modelos personalizados.
+
+"config_name": Define o nome do arquivo de configuração do modelo a ser usado. Isso permite personalizar as configurações do modelo ou utilizar configurações predefinidas.
+
+"tokenizer_name_or_path": Define o nome ou o caminho para o tokenizador pré-treinado a ser carregado. Isso permite utilizar tokenizadores pré-treinados fornecidos pela OpenAI ou tokenizadores personalizados.
+
+"cache_dir": Define o diretório onde o cache dos modelos e tokenizadores será armazenado. Isso é útil para evitar o download repetido dos arquivos de modelo ou tokenizador.
+
+"proxies": Define as configurações de proxy a serem usadas para fazer solicitações à API do OpenAI. Isso permite acessar a API por meio de um servidor proxy, se necessário.
+
+"use_fast": Se definido como true, utiliza implementações de alto desempenho para o tokenizador e o modelo. Isso acelera o tempo de resposta, especialmente em sistemas com recursos limitados.
+
+"use_auth_token": Se definido como true, utiliza um token de autenticação ao fazer solicitações à API do OpenAI. Isso permite acesso a recursos premium ou recursos adicionais da API.
+
+"task": Define a tarefa específica a ser executada pelo modelo. Isso pode ser útil em tarefas especializadas, como tradução, sumarização, perguntas e respostas, entre outras.
