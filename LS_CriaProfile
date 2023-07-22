@@ -1,0 +1,40 @@
+Sub Initialize
+    Dim session As New NotesSession
+    Dim db As NotesDatabase
+    Dim profileDoc As NotesDocument
+    Dim profileForm As String
+    Dim profileKey As String
+    Dim profileValue As String
+
+    On Error GoTo ErrorHandler
+
+    ' Defina o nome do formulário para o documento de perfil
+    profileForm = "ProfileForm" ' Substitua pelo nome do seu formulário de profile
+
+    ' Defina a chave e o valor que deseja armazenar no documento de perfil
+    profileKey = "ChavePerfil" ' Substitua pelo nome da chave do perfil
+    profileValue = "ValorPerfil" ' Substitua pelo valor do perfil que deseja armazenar
+
+    ' Abra ou crie o banco de dados onde deseja criar o documento de perfil
+    Set db = session.CurrentDatabase
+
+    ' Crie um novo documento de perfil
+    Set profileDoc = db.CreateDocument
+
+    ' Defina o formulário do documento como o formulário de perfil
+    profileDoc.Form = profileForm
+
+    ' Defina a chave e o valor no documento de perfil
+    Call profileDoc.ReplaceItemValue(profileKey, profileValue)
+
+    ' Salve o documento de perfil
+    Call profileDoc.Save(True, False)
+
+    MsgBox "Documento de perfil criado com sucesso!", 64, "Sucesso"
+
+    Exit Sub
+
+ErrorHandler:
+    MsgBox "Ocorreu um erro: " & Error$ & " (" & Erl & ")", 48, "Erro"
+    Exit Sub
+End Sub
