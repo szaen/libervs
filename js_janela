@@ -1,0 +1,11 @@
+var larguraJanela = 800; // Substitua pelo valor desejado para a largura da janela
+var alturaJanela = 600; // Substitua pelo valor desejado para a altura da janela
+
+// Calcule as coordenadas X e Y para centralizar a janela
+var leftPosition = (screen.width - larguraJanela) / 2;
+var topPosition = (screen.height - alturaJanela) / 2;
+
+// Abra a nova janela centralizada com os valores fixos de largura e altura
+window.open('/' + dbName.value + '/DLGJU?OpenForm&req=S', '', 'width=' + larguraJanela + ',height=' + alturaJanela + ',left=' + leftPosition + ',top=' + topPosition);
+
+
