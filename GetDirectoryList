@@ -1,0 +1,28 @@
+Sub Click(Source As Button)
+    Dim session As New NotesSession
+    Dim ws As New NotesUIWorkspace
+    Dim uidoc As NotesUIDocument
+    Dim serverName As String
+    Dim db As NotesDatabase
+    Dim dirList As Variant
+    
+    Set uidoc = ws.CurrentDocument
+    serverName = uidoc.FieldGetText("NomeDoServidor") ' Insira o nome do campo de texto para o servidor
+    
+    If serverName = "" Then
+        MessageBox "Por favor, insira o nome do servidor."
+        Exit Sub
+    End If
+    
+    Set db = session.GetDatabase(serverName, "")
+    
+    If Not db Is Nothing Then
+        dirList = db.GetDirectoryList("", "*")
+        
+        Forall dir In dirList
+            Print dir
+        End Forall
+    Else
+        MessageBox "Não foi possível abrir o banco de dados no servidor especificado."
+    End If
+End Sub
