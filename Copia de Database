@@ -1,34 +1,32 @@
-Sub Initialize
-	Dim session As New NotesSession
-	Dim dbServer As String
-	Dim dbDirectory As String
-	Dim copyDirectory As String
-	
-	dbServer = "NomeDoServidor" ' Substitua pelo nome do servidor
-	dbDirectory = "C:\Caminho\Para\As\Bases" ' Substitua pelo diretório das bases de dados
-	copyDirectory = "C:\Caminho\Para\Destino" ' Substitua pelo diretório de destino das cópias
-	
-	Dim db As NotesDatabase
-	Set db = session.GetDatabase(dbServer, dbDirectory, False)
-	
-	If Not db Is Nothing Then
-        ' Compacta o design do banco de dados
-		Call db.Compact
-		
-		Dim options As Long
-		options = FTINDEX_ATTACHED_FILES + FTINDEX_ALL_BREAKS
-		
-		Dim recreate As Boolean
-		recreate = True
-		
-		Dim targetFilePath As String
-		targetFilePath = copyDirectory & "\" & db.Title & ".nft"
-		
-        ' Cria um índice de texto completo para o banco de dados compactado
-		Call db.CreateFTIndex(options, recreate)
-		
-		Msgbox "Índice de texto completo criado com sucesso!"
-	Else
-		Msgbox "Não foi possível acessar a base de dados."
-	End If
+Sub CopiarBasesParaNTF
+    Dim sessao As New NotesSession
+    Dim servidorBanco As String
+    Dim diretorioBanco As String
+    Dim copyDirectory As String
+    
+    servidorBanco = "NomeDoServidor" ' Substitua pelo nome do servidor
+    diretorioBanco = "C:\Caminho\Para\As\Bases" ' Substitua pelo diretório das bases de dados
+    copyDirectory = "C:\Caminho\Para\Destino" ' Substitua pelo diretório de destino das cópias
+    
+    Dim dir As String
+    dir = Dir$(diretorioBanco & "\*.nsf")
+    
+    Do While dir <> ""
+        Dim bancoDados As NotesDatabase
+        Set bancoDados = sessao.GetDatabase(servidorBanco, diretorioBanco & "\" & dir, False)
+        
+        If Not bancoDados Is Nothing Then
+            Dim nomeArquivo As String
+            nomeArquivo = Left$(dir, Len(dir) - 4) ' Remove a extensão .nsf
+            
+            Dim caminhoDestino As String
+            caminhoDestino = copyDirectory & "\" & nomeArquivo & ".ntf"
+            
+            Call bancoDados.CreateCopy("", caminhoDestino)
+            
+            MsgBox "Base " & dir & " copiada para " & caminhoDestino
+        End If
+        
+        dir = Dir$
+    Loop
 End Sub
