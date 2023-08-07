@@ -1,0 +1,28 @@
+Sub Initialize
+    Dim session As New NotesSession
+    Dim dbServer As String
+    Dim dbDirectory As String
+    Dim copyDirectory As String
+    
+    dbServer = "NomeDoServidor" ' Substitua pelo nome do servidor
+    dbDirectory = "C:\Caminho\Para\As\Bases" ' Substitua pelo diretório das bases de dados
+    copyDirectory = "C:\Caminho\Para\Destino" ' Substitua pelo diretório de destino das cópias
+    
+    Dim db As NotesDatabase
+    Set db = session.GetDatabase(dbServer, dbDirectory, False)
+    
+    If Not db Is Nothing Then
+        Dim designOnly As Integer
+        designOnly = db.COMPACT_REVERT_DOCS + db.COMPACT_NO_LOCK + db.COMPACT_HIGHLIGHT_DELETED + db.COMPACT_COPY_STYLE
+        Call db.CompactWithOptions("", designOnly)
+        
+        Dim targetFilePath As String
+        targetFilePath = copyDirectory & "\" & db.Title & ".nft"
+        
+        Call db.CreateFTIndex(targetFilePath, 0)
+        
+        MsgBox "Base de dados copiada com sucesso!"
+    Else
+        MsgBox "Não foi possível acessar a base de dados."
+    End If
+End Sub
