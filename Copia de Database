@@ -1,32 +1,23 @@
-Sub CopiarBasesParaNTF
-    Dim sessao As New NotesSession
-    Dim servidorBanco As String
-    Dim diretorioBanco As String
-    Dim copyDirectory As String
-    
-    servidorBanco = "NomeDoServidor" ' Substitua pelo nome do servidor
-    diretorioBanco = "C:\Caminho\Para\As\Bases" ' Substitua pelo diretório das bases de dados
-    copyDirectory = "C:\Caminho\Para\Destino" ' Substitua pelo diretório de destino das cópias
-    
-    Dim dir As String
-    dir = Dir$(diretorioBanco & "\*.nsf")
-    
-    Do While dir <> ""
-        Dim bancoDados As NotesDatabase
-        Set bancoDados = sessao.GetDatabase(servidorBanco, diretorioBanco & "\" & dir, False)
-        
-        If Not bancoDados Is Nothing Then
-            Dim nomeArquivo As String
-            nomeArquivo = Left$(dir, Len(dir) - 4) ' Remove a extensão .nsf
-            
-            Dim caminhoDestino As String
-            caminhoDestino = copyDirectory & "\" & nomeArquivo & ".ntf"
-            
-            Call bancoDados.CreateCopy("", caminhoDestino)
-            
-            MsgBox "Base " & dir & " copiada para " & caminhoDestino
-        End If
-        
-        dir = Dir$
-    Loop
-End Sub
+Title
+Cadastro de Acesso SCQ
+Henkaten
+Controle de Informe de Ocorrência
+Ressarcimento de Garantias dos Fornecedores
+Portal SCQ
+Controle de Alterações
+Controle de Atividades
+Controle de Lote Inicial
+SCQ - Configuração
+Graficos WEB
+Inspeção de Garantia
+Julgamento
+Controle de Norma de Inspeção
+Controle de OSE
+SCQ - Listas e lookups
+Portal SCQ
+QIS
+SCQ - Resources
+Regra de Envio
+Ressarcimento
+Relatórios de Inspeção
+Trouble Report
