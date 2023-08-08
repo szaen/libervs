@@ -1,23 +1,26 @@
-Title
-Cadastro de Acesso SCQ
-Henkaten
-Controle de Informe de Ocorrência
-Ressarcimento de Garantias dos Fornecedores
-Portal SCQ
-Controle de Alterações
-Controle de Atividades
-Controle de Lote Inicial
-SCQ - Configuração
-Graficos WEB
-Inspeção de Garantia
-Julgamento
-Controle de Norma de Inspeção
-Controle de OSE
-SCQ - Listas e lookups
-Portal SCQ
-QIS
-SCQ - Resources
-Regra de Envio
-Ressarcimento
-Relatórios de Inspeção
-Trouble Report
+Claro, aqui está a lista com os espaços removidos, no formato camel case e com o prefixo "tmplt" adicionado:
+
+- tmpltCadastroDeAcessoSCQ
+- tmpltHenkaten
+- tmpltControleDeInformeDeOcorrência
+- tmpltRessarcimentoDeGarantiasDosFornecedores
+- tmpltPortalSCQ
+- tmpltControleDeAlterações
+- tmpltControleDeAtividades
+- tmpltControleDeLoteInicial
+- tmpltSCQ-Configuração
+- tmpltGraficosWEB
+- tmpltInspeçãoDeGarantia
+- tmpltJulgamento
+- tmpltControleDeNormaDeInspeção
+- tmpltControleDeOSE
+- tmpltSCQ-ListasELookups
+- tmpltPortalSCQ
+- tmpltQIS
+- tmpltSCQ-Resources
+- tmpltRegraDeEnvio
+- tmpltRessarcimento
+- tmpltRelatóriosDeInspeção
+- tmpltTroubleReport
+
+Espero que isso seja útil! Se você tiver mais alguma pergunta ou precisar de assistência adicional, fique à vontade para perguntar.
