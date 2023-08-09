@@ -1,26 +1,66 @@
-Claro, aqui está a lista com os espaços removidos, no formato camel case e com o prefixo "tmplt" adicionado:
-
-- tmpltCadastroDeAcessoSCQ
-- tmpltHenkaten
-- tmpltControleDeInformeDeOcorrência
-- tmpltRessarcimentoDeGarantiasDosFornecedores
-- tmpltPortalSCQ
-- tmpltControleDeAlterações
-- tmpltControleDeAtividades
-- tmpltControleDeLoteInicial
-- tmpltSCQ-Configuração
-- tmpltGraficosWEB
-- tmpltInspeçãoDeGarantia
-- tmpltJulgamento
-- tmpltControleDeNormaDeInspeção
-- tmpltControleDeOSE
-- tmpltSCQ-ListasELookups
-- tmpltPortalSCQ
-- tmpltQIS
-- tmpltSCQ-Resources
-- tmpltRegraDeEnvio
-- tmpltRessarcimento
-- tmpltRelatóriosDeInspeção
-- tmpltTroubleReport
-
-Espero que isso seja útil! Se você tiver mais alguma pergunta ou precisar de assistência adicional, fique à vontade para perguntar.
+Option Public
+Option Declare
+Use "Archive"
+Use "OpenLogFunctions"
+Use "ConvertImages"
+Sub Initialize
+	On Error Goto errorHandler
+	Dim session As New NotesSession
+	Dim db As NotesDatabase
+	Dim view As NotesView
+	Dim agent As NotesAgent
+	Dim doc As NotesDocument
+	Dim io As NotesDocument
+	
+	Set db = session.CurrentDatabase
+	Set agent = session.CurrentAgent
+	Set io = db.GetDocumentByID(agent.ParameterDocID)
+	
+'	Set view = db.GetView("VKINIO")
+'	Set io = view.GetDocumentByKey("000706",True)
+	
+	If io Is Nothing Then
+		Call logEvent("Erro ao pegar io a ser arquivado",SEVERITY_HIGH,Nothing)
+		Exit Sub
+	Else
+		If io.ConvertedImages(0) <> "S" Then
+			If Not convertImagesToAttachments(io) Then
+				Call logEvent("Erro ao converter imagens",SEVERITY_HIGH,Nothing)
+				Exit Sub
+			End If
+		End If
+	End If
+	
+	Set view = db.GetView("V5PBIO")	
+	
+	Set doc = view.GetDocumentByKey(io.TX_IO(0),True)
+	If Not doc Is Nothing Then
+		If Not inserir5PB(doc) Then
+			Call logEvent("Não foi possível arquivar o 5PB",SEVERITY_HIGH,doc)
+			Exit Sub
+		End If
+		
+		Call doc.Remove(True)
+		
+		Set view = db.GetView("VWTERMO")
+		Dim termo As NotesDocument
+		Dim inio As New CustomString(io.TX_IO(0))
+		Set termo = view.GetDocumentByKey(inio.ReplaceSubstring("/",""),True)
+		
+		If Not termo Is Nothing Then
+			Call termo.Remove(True)
+		End If
+		
+	End If
+	
+	If inserirIO(io) Then
+		'Call io.Remove(True)
+	Else
+		Call logEvent("Não foi possível inserir o IO",SEVERITY_HIGH,io)
+		Exit Sub
+	End If	
+	Exit Sub
+errorHandler:
+	Call logErrorEx("",SEVERITY_HIGH,doc)
+	Exit Sub
+End Sub
