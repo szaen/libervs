@@ -1,0 +1,1586 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+ "http://www.w3.org/TR/html4/loose.dtd"><html>
+<head>
+<link rel="stylesheet" href="/APL/qualidade/scq/SCQTR.nsf/formStyle.css" type="text/css">
+<script language="JavaScript" src="/APL/qualidade/scq/SCQTR.nsf/Common.js"></script>
+<script language="JavaScript" src="/APL/qualidade/scq/SCQTR.nsf/JSFuncoes.js"></script>
+<script language="JavaScript" src="/APL/qualidade/scq/SCQTR.nsf/NamePicker.js"></script>
+<link rel="stylesheet" type="text/css" href="/APL/qualidade/scq/SCQTR.nsf/tabStyle.css">
+<link rel="stylesheet" type="text/css" href="/APL/qualidade/scq/SCQTR.nsf/viewStyle.css">
+<script language="JavaScript" src="/APL/qualidade/scq/SCQPopup.nsf/selectLookup.js"></script>
+<script language="JavaScript">var isDocBeingEdited = false; var isNewDoc = false;</script><title>Trouble Report - Kss-0010-20</title><link rel="stylesheet" type="text/css" href="/APL/qualidade/scq/SCQTR.nsf/tabStyle.css">
+<script language="JavaScript" src="/APL/qualidade/scq/SCQTR.nsf/popcalendar.js"></script>
+<script language="JavaScript" type="text/javascript">
+<!-- 
+var frm;
+
+function PostOpenForm(){
+
+if (document.forms[0].isNewDocument.value =='Novo'){
+salvar();
+}
+}
+
+
+
+
+
+
+// Envia o documento para aprovação
+//__________________________________________________________________
+function enviarAprovacao(){
+
+var data = new Date();
+	with(document.forms[0]){
+	//- - - - - - - Valida Data da Ocorrência - - - - - - - -
+		
+		if(Contato.value == ''){
+				alert("The selected vendor has not registered a contact. Please provide the registration");
+				return;			
+			}
+		
+		
+		if(fctValidarDados() == true){
+			if(ValidaDatas(TX_DTOCORRENCIA.value,data) == false){
+				alert("The ocurrence date can not be after then the current date");
+				return;
+			}
+			if(TX_DATA_NAO_CHECADA.value != ''){
+				if(ValidaDatas(data, TX_DATA_NAO_CHECADA.value) == false){
+					alert("The replacement date can not be before then the current date");
+					return;
+				}
+			}
+			if(parseInt(TX_QTDTOTAL.value) < parseInt(TX_QTDPROBLEMA.value)){
+				alert("The TTL Qty can not be lesser than the NG Qty");
+				return;
+			}				
+			
+			if(parseInt(TX_QUANTIDADE_NAO_CHECADA.value) > parseInt(TX_QTDPROBLEMA.value)){
+				alert("The Quantity can not be larger than NG Qty.");
+				return;			
+			}
+			
+			
+			
+			var txtmsg = "Are you sure you want to send this Trouble Report to approval now?";
+		
+			if(confirm(txtmsg)) {
+				obs = window.open(dbName.value + '/FOBS?OpenForm&acao=EnviarAprovacao&Fluxo=APROVACAO&documento=TR&ID='+DocUnid.value,'Comments','width=400,height=170');
+			}
+		}	
+}
+}
+/*	
+// Envia o documento para RS
+//__________________________________________________________________
+function enviarTRtoRS(){
+	if(fctValidarDados() == true){ //validar aqui o comentário do emitente para o RS (se TX_REPLYSHEET_DUVIDA = "1")
+		with(document.forms[0]){
+			var txtmsg = "Are you sure you want to send this Trouble Report back to Reply Sheet approval?";
+			if(confirm(txtmsg)) {
+				ACAO.value = 'EnviarTRtoRS';
+				submit();
+			}
+		}	
+	}
+}
+*/
+function fctValidarDadosRascunho(){
+	var arrayCampos;
+
+	arrayCampos = new Array(6);
+
+	if(document.forms[0].Trouble.value == "Emitido"){
+		arrayCampos[0] = "TX_FORCOD";
+		arrayCampos[1] = "Data For Issue Section - To";
+		arrayCampos[2] = "TX_DESCPECA";
+		arrayCampos[3] = "Data Material Section - Part";
+		arrayCampos[4] = "TX_DTOCORRENCIA";
+		arrayCampos[5] = "Occurrence Information Section - Occurrence Date";
+	}else{
+		arrayCampos[0] = "TX_DESTINO";
+		arrayCampos[1] = "Data For Issue Section - To";
+		arrayCampos[2] = "TX_ITEMDESC_ING"; //Trd 2013 16/07/2013
+		arrayCampos[3] = "Data Material Section - Part";
+		arrayCampos[4] = "TX_DTOCORRENCIA";
+		arrayCampos[5] = "Occurrence Information Section - Occurrence Date";	
+	}
+	
+
+	if( JS_Funcoes_fctValidaCampos( arrayCampos ) == true ){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+function fctValidarDados(){
+	var arrayCampos;
+	var arrayConcatenado;
+	var arrayDestino;
+	var cont = 0;
+		if(document.forms[0].Trouble.value == "Emitido"){
+			arrayCampos = new Array(30);
+			arrayCampos[cont] = "TX_FORCOD";
+			cont += 1
+		 	arrayCampos[cont] = "Data Material Section - Supplier";
+			cont += 1
+	}else{
+			arrayCampos = new Array(26); //28
+	}
+	arrayCampos[cont] = "TX_ITEMDESC_ING";
+	cont += 1
+	arrayCampos[cont] = "Data Material Section - Parts";
+	cont += 1
+ 	arrayCampos[cont] = "TX_DESCPECA";
+	cont += 1
+ 	arrayCampos[cont] = "Data Material Section - Parts";
+	cont += 1
+ 	arrayCampos[cont] = "TX_NUMERO_FATURA";
+	cont += 1
+ 	arrayCampos[cont] = "Invoice Section - Invoice No";
+	cont += 1
+ 	arrayCampos[cont] = "TX_DTOCORRENCIA";
+	cont += 1
+ 	arrayCampos[cont] = "Occurrence Information Section - Occurrence Date";
+	cont += 1
+ 	arrayCampos[cont] = "TX_QTDPROBLEMA";
+	cont += 1
+ 	arrayCampos[cont] = "Occurrence Information Section - Pieces with Problem / Total Parts";
+	cont += 1
+ 	arrayCampos[cont] = "TX_QTDTOTAL";
+	cont += 1
+ 	arrayCampos[cont] = "Occurrence Information Section - Pieces with Problem / Total Parts";
+	cont += 1
+ 	arrayCampos[cont] = "TX_SITUACAO_PECA";
+	cont += 1
+ 	arrayCampos[cont] = "Occurrence Information Section - Situation of Parts";
+	cont += 1
+	arrayCampos[cont] = "TX_REPOSICAO";
+	cont += 1
+	arrayCampos[cont] = "Occurrence Information Section - Replacement";
+	cont += 1
+	arrayCampos[cont] = "TX_CONDICAO_PROXIMO_LOTE";
+	cont += 1
+	arrayCampos[cont] = "Occurrence Information Section - Condition of Next Lot";
+	cont += 1	
+     if(document.forms[0].Trouble.value == "Emitido"){ //Trd 2013 14/10/2013
+	    arrayCampos[cont] = "TX_FORMA_EMBARQUE";
+	    cont += 1
+	    arrayCampos[cont] = "Board of Replacement Section - Shipping Type";  
+	    cont += 1
+	}	
+	arrayCampos[cont] = "TX_GRAU";
+	cont += 1
+	arrayCampos[cont] = "Board of Replacement Section  - Level";
+	cont += 1
+	arrayCampos[cont] = "TX_PROBLEMAS";
+	cont += 1
+	arrayCampos[cont] = "Trouble Section - Trouble Description";
+	cont += 1
+	arrayCampos[cont] = "TX_DESCPROBLEMAS";
+	cont += 1
+	arrayCampos[cont] = "Trouble Section - Trouble Details";
+	cont += 1
+	arrayCampos[cont] = "TX_ANALISE";
+	cont += 1
+	arrayCampos[cont] = "Attachment Section - Analysis";
+	cont += 1
+	//arrayCampos[cont] = "TX_ATTUNID";
+	//cont += 1
+	//arrayCampos[cont] = "Attachment Section - Attachment(s)";
+/*
+	if(document.forms[0].Trouble.value == "Recebido"){
+		arrayConcatenado = new Array(1);	
+		arrayConcatenado[0] = "TX_DELEGACAO";
+		arrayConcatenado[1] = "Trouble Delegation Section - Delegating For";	
+		arrayCampos = arrayCampos.concat( arrayConcatenado );					
+		for( var j = 0 ; j < frm.TX_DELEGACAO.length ; j++ ){
+			if( frm.TX_DELEGACAO[j].selected) {
+				if(frm.TX_DELEGACAO[j].text == "Supplier"){
+					arrayConcatenado = new Array(1);
+					arrayConcatenado[0] = "TX_DELEGARCODFORN";		
+					arrayConcatenado[1] = "Trouble Delegation Section - Supplier";			
+					arrayCampos = arrayCampos.concat( arrayConcatenado );			
+					break;				
+				}else if(frm.TX_DELEGACAO[j].text == "Internal Area"){
+					arrayConcatenado = new Array(1);
+					arrayConcatenado[0] = "TX_SETORINTERNO";		
+					arrayConcatenado[1] = "Trouble Delegation Section - Internal Area";	
+					arrayCampos = arrayCampos.concat( arrayConcatenado );					
+					break;				
+				}				
+			}
+		}
+	}
+*/
+	if(document.forms[0].Trouble.value == "Recebido"){
+		arrayDestino = new Array(1);
+		arrayDestino[0] = "TX_DESTINO";
+	 	arrayDestino[1] = "Data Issue Section - To";
+	 	
+	 	arrayCampos = arrayCampos.concat( arrayDestino );
+	 	
+	 	arrayCroqui = new Array(1);
+		arrayCroqui[0] = "TX_ATTUNID_CROQUI";
+	 	arrayCroqui[1] = "Sketch";
+	 	
+	 	arrayCampos = arrayCampos.concat( arrayCroqui );
+	 	
+	 	
+	 	
+	 	
+	 		
+	 	if(document.forms[0].Reposicao.value != "NOT NECESSARY"){ //Trd 2013 14/10/2013
+	 	arrayDestino1 = new Array(1);
+		arrayDestino1[0] = "TX_FORMA_EMBARQUE";
+	 	arrayDestino1[1] = "Board of Replacement Section - Shipping Type"; 
+	 	arrayCampos = arrayCampos.concat( arrayDestino1 );
+		}
+	 	
+					
+	}		
+
+	
+		if( JS_Funcoes_fctValidaCampos( arrayCampos ) == true ){
+			return true;
+		}else{
+			return false;
+		}
+}
+
+function mudaIdioma(idioma){
+var arrayCampos;
+arrayCampos = new Array(120);  //114	
+arrayCamposDel = new Array(1);
+arrayCampos3G = new Array(1);
+var flag;	
+var cont = 0;
+
+
+	if(idioma == "POR"){
+	 	arrayCampos[cont] = "data_issue";
+		cont += 1;
+	 	arrayCampos[cont] = "dados_emissao";
+	 	cont += 1;
+	 	arrayCampos[cont] = "to";
+	 	cont += 1;
+	 	arrayCampos[cont] = "destino";
+	 	cont += 1;
+	 	arrayCampos[cont] = "contact";
+	 	cont += 1;
+	 	arrayCampos[cont] = "contato";
+	 	cont += 1;
+	 	
+	 	if(document.forms[0].Trouble.value == "Recebido"){
+	 		arrayCampos[cont] = "control";
+	 		cont += 1;
+	 		arrayCampos[cont] = "controle";
+	 		cont += 1;
+		 }
+		  
+		if(document.forms[0].Trouble.value == "Emitido"){ 
+		 	arrayCampos[cont] = "block";
+	 		cont += 1;
+	 		arrayCampos[cont] = "bloqueio";
+			cont += 1;
+		}                    
+		 
+	 	arrayCampos[cont] = "from";
+	 	cont += 1;
+	 	arrayCampos[cont] = "origem";
+	 	cont += 1;
+	 	arrayCampos[cont] = "date_issue";
+	 	cont += 1;
+	 	arrayCampos[cont] = "data_emissao";
+	 	cont += 1;
+	 	arrayCampos[cont] = "trouble_no";
+	 	cont += 1;
+	 	arrayCampos[cont] = "numero_trouble";
+	 	cont += 1;
+	 	arrayCampos[cont] = "material_data";
+	 	cont += 1;
+	 	arrayCampos[cont] = "dados_material";
+	 	cont += 1;
+	 	arrayCampos[cont] = "supplier";
+	 	cont += 1;
+	 	arrayCampos[cont] = "fornecedor";
+	 	cont += 1;
+	 	arrayCampos[cont] = "part";
+	 	cont += 1;
+	 	arrayCampos[cont] = "peca";
+	 	cont += 1;
+	 	arrayCampos[cont] = "desc_ing";
+	 	cont += 1;
+	 	arrayCampos[cont] = "desc_port";
+	 	cont += 1;
+	 	arrayCampos[cont] = "invoice";
+	 	cont += 1;
+	 	arrayCampos[cont] = "fatura";
+	 	cont += 1;
+	 	arrayCampos[cont] = "invoice_no";
+	 	cont += 1;
+	 	arrayCampos[cont] = "numero_fatura";
+	 	cont += 1;
+	 	arrayCampos[cont] = "lot_no";
+	 	cont += 1;
+	 	arrayCampos[cont] = "numero_lote";
+	 	cont += 1;
+	 	arrayCampos[cont] = "case_no";
+	 	cont += 1;
+	 	arrayCampos[cont] = "numero_case";
+	 	cont += 1;
+	 	arrayCampos[cont] = "model";
+	 	cont += 1;
+	 	arrayCampos[cont] = "modelo";
+	 	cont += 1;
+	 	arrayCampos[cont] = "issuer";
+	 	cont += 1;
+	 	arrayCampos[cont] = "emitente";
+	 	cont += 1;
+	 	arrayCampos[cont] = "issuer_trouble";
+	 	cont += 1;
+	 	arrayCampos[cont] = "emitente_trouble";
+	 	cont += 1;
+	 	arrayCampos[cont] = "occurrence_information";
+	 	cont += 1;
+	 	arrayCampos[cont] = "dados_ocorrencia";
+	 	cont += 1;
+	 	arrayCampos[cont] = "occurrence_date";
+	 	cont += 1;
+	 	arrayCampos[cont] = "data_ocorrencia";
+	 	cont += 1;
+	 	arrayCampos[cont] = "pieces_problem_total_parts";
+	 	cont += 1;
+	 	arrayCampos[cont] = "pecas_problema_total_pecas";
+	 	cont += 1;
+	 	arrayCampos[cont] = "situation_part";
+	 	cont += 1;
+	 	arrayCampos[cont] = "situacao_pecas";
+	 	cont += 1;
+	 	arrayCampos[cont] = "replacement";
+	 	cont += 1;
+	 	arrayCampos[cont] = "reposicao";
+	 	cont += 1;
+	 	arrayCampos[cont] = "condition_next_lot";
+	 	cont += 1;
+	 	arrayCampos[cont] = "condicao_proximo_lote";
+	 	cont += 1;
+	 	arrayCampos[cont] = "necessary_replacement";
+	 	cont += 1;
+	 	arrayCampos[cont] = "necessidade_reposição";
+	 	cont += 1;
+	 	arrayCampos[cont] = "quantity";
+	 	cont += 1;
+	 	arrayCampos[cont] = "quantidade";
+	 	cont += 1;
+	 	arrayCampos[cont] = "color";
+	 	cont += 1;
+	 	arrayCampos[cont] = "cor";
+	 	cont += 1;
+	 	arrayCampos[cont] = "date";
+	 	cont += 1;
+	 	arrayCampos[cont] = "data";
+	 	cont += 1;
+	 	arrayCampos[cont] = "shipping_replacement";
+	 	cont += 1;
+	 	arrayCampos[cont] = "embarque_reposição";
+	 	cont += 1;
+	 	arrayCampos[cont] = "shipping_type";
+	 	cont += 1;
+	 	arrayCampos[cont] = "forma_embarque";
+	 	cont += 1;
+	 	arrayCampos[cont] = "level";
+	 	cont += 1;
+	 	arrayCampos[cont] = "grau";
+	 	cont += 1;
+	 	arrayCampos[cont] = "section_trouble";
+	 	cont += 1;
+	 	arrayCampos[cont] = "secao_problema";
+	 	cont += 1;
+	 	arrayCampos[cont] = "trouble_code";
+	 	cont += 1;
+	 	arrayCampos[cont] = "codigo_problema";
+	 	cont += 1;
+	 	arrayCampos[cont] = "trouble_description";
+	 	cont += 1;
+	 	arrayCampos[cont] = "descricao_problema";
+	 	cont += 1;
+	 	arrayCampos[cont] = "analysis";
+	 	cont += 1;
+	 	arrayCampos[cont] = "analise";
+	 	cont += 1;
+	 	arrayCampos[cont] = "attachment";	 	
+	 	cont += 1;
+		arrayCampos[cont] = "anexo";
+		cont += 1;
+	 	arrayCampos[cont] = "name_attachment";
+	 	cont += 1;
+	 	arrayCampos[cont] = "nome_arquivo";	 	
+	 	cont += 1;
+	 	arrayCampos[cont] = "size_attachment";	 	
+	 	cont += 1;
+		arrayCampos[cont] = "tamanho_arquivo";
+		cont += 1;
+	 	arrayCampos[cont] = "delete";
+	 	cont += 1;
+		arrayCampos[cont] = "excluir";
+		cont += 1;
+	 	arrayCampos[cont] = "view";
+	 	cont += 1;
+		arrayCampos[cont] = "visualizar";
+		cont += 1;
+		arrayCampos[cont] = "trouble_delegation";
+		cont += 1;
+		arrayCampos[cont] = "delegar_para";
+		cont += 1;
+	 	arrayCampos[cont] = "history_reply_sheet";
+	 	cont += 1;
+	 	arrayCampos[cont] = "historico_reply_sheet";
+	 	cont += 1;
+	 	arrayCampos[cont] = "date_reply_sheet";
+	 	cont += 1;
+	 	arrayCampos[cont]= "data_reply_sheet";
+	 	cont += 1;
+	 	arrayCampos[cont] = "view_reply_sheet";
+	 	cont += 1;
+	 	arrayCampos[cont] = "visualizar_reply_sheet";
+	 	cont += 1;
+	 	arrayCampos[cont] = "approval_history";
+	 	cont += 1;
+		arrayCampos[cont] = "historico_aprovacoes";
+		cont += 1;
+	 	arrayCampos[cont] = "approver";
+	 	cont += 1;
+	 	arrayCampos[cont] = "aprovador";
+	 	cont += 1;
+	 	arrayCampos[cont] = "action_aprover";
+	 	cont += 1;
+	 	arrayCampos[cont] = "acoes_aprovador";
+	 	cont += 1;	 	
+	 	arrayCampos[cont] = "date_aprover";
+	 	cont += 1;
+	 	arrayCampos[cont] = "data_aprovador";
+	 	cont += 1;
+	 	arrayCampos[cont] = "comments";
+	 	cont += 1;
+	 	arrayCampos[cont] = "comentario";
+	 	cont += 1;
+	 	arrayCampos[cont] = "history_action";
+	 	cont += 1;
+	 	arrayCampos[cont] = "historico_acoes";
+	 	cont += 1;
+	 	arrayCampos[cont] = "history_action_date";
+	 	cont += 1;
+	 	arrayCampos[cont] = "data_historico_acoes";
+	 	cont += 1;
+	 	arrayCampos[cont] = "history_action_user";
+	 	cont += 1;
+	 	arrayCampos[cont] = "usuario_historico_acoes";
+	 	cont += 1;
+	 	arrayCampos[cont] = "action_user";
+	 	cont += 1;
+	 	arrayCampos[cont] = "acoes_usuario";
+	 	cont += 1;
+	 	arrayCampos[cont] = "history_action_note";
+	 	cont += 1;
+	 	arrayCampos[cont] = "historico_acoes_observacao";	 	
+	 	cont += 1;
+	 	arrayCampos[cont] = "attachment_section";
+	 	cont += 1;
+	 	arrayCampos[cont] = "secao_anexo";
+	 	cont += 1;
+	 	arrayCampos[cont] = "top_acoes_tr_eng";
+	 	cont += 1;
+	 	arrayCampos[cont] = "top_acoes_tr_por";
+	 	cont += 1;
+	 	arrayCampos[cont] = "bottom_acoes_tr_eng";
+	 	cont += 1;
+	 	arrayCampos[cont] = "bottom_acoes_tr_por";
+
+	 	if(document.forms[0].Trouble.value == "Recebido"){
+	 		if(document.forms[0].NUM_ETAPA.value > 1){
+			 	arrayCamposDel[0] = "trouble_delegation";					
+			 	arrayCamposDel[1] = "delegacao_trouble";
+			 	arrayCamposDel[2] = "delegating_for";					
+			 	arrayCamposDel[3] = "delegar_para";
+			 	arrayCampos = arrayCampos.concat( arrayCamposDel);		 	
+				for( var j = 0 ; j < frm.TX_DELEGACAO.length ; j++ ){
+					if( frm.TX_DELEGACAO[j].selected) {
+						if(frm.TX_DELEGACAO[j].text == "Supplier"){
+						 	arrayCamposDel[0] = "supplier_delegating";
+						 	arrayCamposDel[1] = "delegar_fornecedor";
+						 	arrayCampos = arrayCampos.concat( arrayCamposDel );					 	
+						 	flag = true;
+							break;				
+						}else if(frm.TX_DELEGACAO[j].text == "Internal Area"){
+						 	arrayCamposDel[0] = "internal_area";	 	
+						 	arrayCamposDel[1] = "delegar_ccusto";
+						 	arrayCampos = arrayCampos.concat( arrayCamposDel );					 	
+						 	flag = true;
+							break;				
+						}				
+					}
+				}			
+			}	
+		}
+		 	if(document.forms[0].Trouble.value == "Emitido"){
+			 	arrayCampos3G[0] = "issuer_3g";
+			 	arrayCampos3G[1] = "emitente_3g";
+			 	arrayCampos = arrayCampos.concat(arrayCampos3G);			 			 	
+			 }
+ 	}else{
+	 	arrayCampos[cont] = "dados_emissao";
+	 	cont += 1;
+	 	arrayCampos[cont] = "data_issue";
+	 	cont += 1;
+	 	arrayCampos[cont] = "destino";
+	 	cont += 1;
+	 	arrayCampos[cont] = "to";
+	 	cont += 1;
+	 	arrayCampos[cont] = "contato";
+	 	cont += 1;
+	 	arrayCampos[cont] = "contact";
+	 	cont += 1;
+	 	
+	 	if(document.forms[0].Trouble.value == "Recebido"){
+	 		arrayCampos[cont] = "controle";
+	 		cont += 1;
+	 		arrayCampos[cont] = "control";
+	 		cont += 1;
+			                    
+		 }
+		 
+		if(document.forms[0].Trouble.value == "Emitido"){
+	 		arrayCampos[cont] = "bloqueio";
+	 		cont += 1;
+	 		arrayCampos[cont] = "block";
+			cont += 1;                    
+		 }
+		 
+	 	arrayCampos[cont] = "origem";
+	 	cont += 1;
+	 	arrayCampos[cont] = "from";
+	 	cont += 1;
+	 	arrayCampos[cont] = "data_emissao";	 	
+	 	cont += 1;
+		arrayCampos[cont] = "date_issue";
+		cont += 1;
+	 	arrayCampos[cont] = "numero_trouble";
+	 	cont += 1;
+	 	arrayCampos[cont] = "trouble_no";
+	 	cont += 1;
+	 	arrayCampos[cont] = "dados_material";
+	 	cont += 1;
+	 	arrayCampos[cont] = "material_data";
+	 	cont += 1;
+	 	arrayCampos[cont] = "fornecedor";
+	 	cont += 1;
+	 	arrayCampos[cont] = "supplier";
+	 	cont += 1;
+	 	arrayCampos[cont] = "peca";
+	 	cont += 1;
+	 	arrayCampos[cont] = "part";
+	 	cont += 1;
+	 	arrayCampos[cont] = "desc_port";
+	 	cont += 1;
+	 	arrayCampos[cont] = "desc_ing";
+	 	cont += 1;
+	 	arrayCampos[cont] = "fatura";
+	 	cont += 1;
+	 	arrayCampos[cont] = "invoice";
+	 	cont += 1;
+	 	arrayCampos[cont] = "numero_fatura";	 	
+	 	cont += 1;
+		arrayCampos[cont] = "invoice_no";
+		cont += 1;
+	 	arrayCampos[cont] = "numero_lote";	 	
+	 	cont += 1;
+	 	arrayCampos[cont] = "lot_no";
+	 	cont += 1;
+	 	arrayCampos[cont] = "numero_case";
+	 	cont += 1;
+	 	arrayCampos[cont] = "case_no";
+	 	cont += 1;
+	 	arrayCampos[cont] = "modelo";	 	
+	 	cont += 1;
+	 	arrayCampos[cont] = "model";
+	 	cont += 1;
+	 	arrayCampos[cont] = "emitente";
+	 	cont += 1;
+	 	arrayCampos[cont] = "issuer";
+	 	cont += 1;
+	 	arrayCampos[cont] = "emitente_trouble";
+	 	cont += 1;
+	 	arrayCampos[cont] = "issuer_trouble";
+	 	cont += 1;
+	 	arrayCampos[cont] = "dados_ocorrencia";
+	 	cont += 1;
+	 	arrayCampos[cont] = "occurrence_information";
+	 	cont += 1;
+	 	arrayCampos[cont] = "data_ocorrencia";
+	 	cont += 1;
+	 	arrayCampos[cont] = "occurrence_date";
+	 	cont += 1;
+	 	arrayCampos[cont] = "pecas_problema_total_pecas";
+	 	cont += 1;
+	 	arrayCampos[cont] = "pieces_problem_total_parts";
+	 	cont += 1;
+	 	arrayCampos[cont] = "situacao_pecas";
+	 	cont += 1;
+	 	arrayCampos[cont] = "situation_part";
+	 	cont += 1;
+	 	arrayCampos[cont] = "reposicao";	 	
+	 	cont += 1;
+	 	arrayCampos[cont] = "replacement";
+	 	cont += 1;
+	 	arrayCampos[cont] = "condicao_proximo_lote";
+	 	cont += 1;
+	 	arrayCampos[cont] = "condition_next_lot";
+	 	cont += 1;
+	 	arrayCampos[cont] = "necessidade_reposição";
+	 	cont += 1;
+	 	arrayCampos[cont] = "necessary_replacement";
+	 	cont += 1;
+	 	arrayCampos[cont] = "quantidade";	 	
+	 	cont += 1;
+	 	arrayCampos[cont] = "quantity";
+	 	cont += 1;
+	 	arrayCampos[cont] = "cor";	 	
+	 	cont += 1;
+	 	arrayCampos[cont] = "color";
+	 	cont += 1;
+	 	arrayCampos[cont] = "data";
+	 	cont += 1;
+	 	arrayCampos[cont] = "date";
+	 	cont += 1;
+	 	arrayCampos[cont] = "embarque_reposição";
+	 	cont += 1;
+	 	arrayCampos[cont] = "shipping_replacement";
+	 	cont += 1;
+	 	arrayCampos[cont] = "forma_embarque";	 	
+	 	cont += 1;
+	 	arrayCampos[cont] = "shipping_type";
+	 	cont += 1;
+	 	arrayCampos[cont] = "grau";	 	
+	 	cont += 1;
+	 	arrayCampos[cont] = "level";
+	 	cont += 1;
+	 	arrayCampos[cont] = "secao_problema";
+	 	cont += 1;
+	 	arrayCampos[cont] = "section_trouble";
+	 	cont += 1;
+	 	arrayCampos[cont] = "codigo_problema";
+	 	cont += 1;
+	 	arrayCampos[cont] = "trouble_code";
+	 	cont += 1;
+	 	arrayCampos[cont] = "descricao_problema";	 	
+	 	cont += 1;
+	 	arrayCampos[cont] = "trouble_description";
+	 	cont += 1;
+	 	arrayCampos[cont] = "analise";	 	
+	 	cont += 1;
+	 	arrayCampos[cont] = "analysis";
+	 	cont += 1;
+	 	arrayCampos[cont] = "anexo";
+	 	cont += 1;
+		arrayCampos[cont] = "attachment";
+		cont += 1;
+	 	arrayCampos[cont] = "nome_arquivo";
+	 	cont += 1;
+	 	arrayCampos[cont] = "name_attachment";
+	 	cont += 1;
+	 	arrayCampos[cont] = "tamanho_arquivo";
+	 	cont += 1;
+		arrayCampos[cont] = "size_attachment";
+		cont += 1;
+	 	arrayCampos[cont] = "excluir";
+	 	cont += 1;
+		arrayCampos[cont] = "delete";
+		cont += 1;
+	 	arrayCampos[cont] = "visualizar";
+	 	cont += 1;
+		arrayCampos[cont] = "view";
+		cont += 1;
+	 	arrayCampos[cont] = "delegacao_trouble";
+	 	cont += 1;
+	 	arrayCampos[cont] = "trouble_delegation";
+	 	cont += 1;
+	 	arrayCampos[cont] = "delegar_para";	 	
+	 	cont += 1;
+	 	arrayCampos[cont] = "delegating_for";
+	 	cont += 1;
+	 	arrayCampos[cont] = "historico_reply_sheet";
+	 	cont += 1;
+	 	arrayCampos[cont] = "history_reply_sheet";
+	 	cont += 1;
+	 	arrayCampos[cont]= "data_reply_sheet";
+	 	cont += 1;
+	 	arrayCampos[cont] = "date_reply_sheet";
+	 	cont += 1;
+	 	arrayCampos[cont] = "visualizar_reply_sheet";
+	 	cont += 1;
+	 	arrayCampos[cont] = "view_reply_sheet";
+	 	cont += 1;
+		arrayCampos[cont] = "historico_aprovacoes";
+		cont += 1;
+	 	arrayCampos[cont] = "approval_history";
+	 	cont += 1;
+	 	arrayCampos[cont] = "aprovador";	
+	 	cont += 1;
+	 	arrayCampos[cont] = "approver";
+	 	cont += 1;
+	 	arrayCampos[cont] = "acoes_aprovador";	 	
+	 	cont += 1;	 	
+	 	arrayCampos[cont] = "action_aprover";
+	 	cont += 1;
+	 	arrayCampos[cont] = "data_aprovador";	 	
+	 	cont += 1;	 		 	
+	 	arrayCampos[cont] = "date_aprover";
+	 	cont += 1;
+	 	arrayCampos[cont] = "comentario";
+	 	cont += 1;
+	 	arrayCampos[cont] = "comments";
+	 	cont += 1;
+	 	arrayCampos[cont] = "historico_acoes";
+	 	cont += 1;
+	 	arrayCampos[cont] = "history_action";
+	 	cont += 1;
+	 	arrayCampos[cont] = "data_historico_acoes";
+	 	cont += 1;
+	 	arrayCampos[cont] = "history_action_date";
+	 	cont += 1;
+	 	arrayCampos[cont] = "usuario_historico_acoes";
+	 	cont += 1;
+	 	arrayCampos[cont] = "history_action_user";
+	 	cont += 1;
+	 	arrayCampos[cont] = "acoes_usuario";
+	 	cont += 1;
+	 	arrayCampos[cont] = "action_user";
+	 	cont += 1;
+	 	arrayCampos[cont] = "historico_acoes_observacao";	 		 	
+	 	cont += 1;
+	 	arrayCampos[cont] = "history_action_note";
+	 	cont += 1;
+	 	arrayCampos[cont] = "secao_anexo";	 	
+	 	cont += 1;
+	 	arrayCampos[cont] = "attachment_section";
+	 	cont += 1;
+	 	arrayCampos[cont] = "top_acoes_tr_por";
+	 	cont += 1;
+	 	arrayCampos[cont] = "top_acoes_tr_eng";
+	 	cont += 1;
+	 	arrayCampos[cont] = "bottom_acoes_tr_por";
+	 	cont += 1;
+	 	arrayCampos[cont] = "bottom_acoes_tr_eng";
+           
+		 		
+	 	if(document.forms[0].Trouble.value == "Recebido"){
+	 		if(document.forms[0].NUM_ETAPA.value > 1){
+		 		arrayCamposDel[0] = "trouble_delegation";					
+		 		arrayCamposDel[1] = "delegacao_trouble";
+			 	arrayCamposDel[2] = "delegating_for";					
+			 	arrayCamposDel[3] = "delegar_para";		
+			 	arrayCampos = arrayCampos.concat( arrayCamposDel );
+			 	
+				for( var j = 0 ; j < frm.TX_DELEGACAO.length ; j++ ){
+					if( frm.TX_DELEGACAO[j].selected) {
+						if(frm.TX_DELEGACAO[j].text == "Supplier"){
+					 		arrayCamposDel[0] = "supplier_delegating";
+						 	arrayCamposDel[1] = "delegar_fornecedor";
+				 		 	arrayCampos = arrayCampos.concat( arrayCamposDel );
+							break;				
+						}else if(frm.TX_DELEGACAO[j].text == "Internal Area"){
+						 	arrayCamposDel[0] = "internal_area";
+						 	arrayCamposDel[1] = "delegar_ccusto";	 	
+					 		arrayCampos = arrayCampos.concat( arrayCamposDel );
+							break;				
+						}				
+					}
+				}	
+			}	
+		}		
+			if(document.forms[0].Trouble.value == "Emitido"){
+			 	arrayCampos3G[0] = "emitente_3g";		
+			 	arrayCampos3G[1] = "issuer_3g";
+			 	arrayCampos = arrayCampos.concat(arrayCampos3G);			 	
+			 }
+	 }
+	JS_Funcoes_fctMudaIdioma(arrayCampos)	 
+}
+
+// Visualizar 3G
+//*************************************************************************************
+function vis3G(){
+	with(document.forms[0]){
+		var urlStr = '/'+BASE_RI.value+'/AGOPENRI?OpenAgent&NUMRI='+TX_NUM_3G.value+'&ANORI='+TX_ANO_3G.value+'&FINRI='+TX_FIN_3G.value+'&GERACLI=N&GERAIO=T&VTR=OK';
+		//alert(urlStr)
+		window.open(urlStr,'Visualizar_3G','toolbar=no,scrollbars=yes,width=900, height=600,resizeble=NO');
+	}
+}
+
+function selectIt(){
+	var tr = parent.document.getElementByID('TR');
+	var ri = parent.document.getElementByID('RI');
+	if(tr.className != '')
+		return false;
+	l = tr.parentNode.childNodes.length;
+	for(i = 0; i < l;i++)
+		tr.parentNode.childNodes[i].className = '';
+		tr.className = 'current';
+		
+	if(ri.className = '')
+		return false;
+	m = ri.parentNode.childNodes.length;
+	for(j = 0; j < m;j++)
+		ri.parentNode.childNodes[j].className = '';
+		ri.className = '';
+}
+
+//Trd 2013
+
+function retornaCodForn(codigo,nome,nivel,sigla,numero,ano){
+ with(document.forms[0]){ 
+   TX_FORCOD.value    = codigo;
+   TX_FORNOME.value   = nome;
+   TX_FORNIVEL.value  = nivel;
+   TX_FORSIGLA.value  = sigla;
+   TX_FORNUMERO.value = numero;
+   TX_FORANO.value    = ano;
+ }
+	 salvar_forn();
+}
+
+function SelecionaCodigoFornecedor(){
+  with(document.forms[0]){
+       var urlStr  = dbName.value+'/FAPRNEW?OpenForm';
+       window.open(urlStr,'Visualizar_3G','toolbar=no,scrollbars=yes,width=600, height=350,resizeble=NO');
+	}
+		
+}
+
+
+//function aprovar_receb(){
+//	with(document.forms[0]){
+		//alert(Trouble.value);
+//			ACAO.value = 'Salvar';
+//	submit();
+//		}
+//	}
+
+
+
+function Morethen(){
+
+alert(this.value);
+
+
+
+}
+
+
+
+
+// -->
+</script>
+
+<script language="JavaScript" type="text/javascript">
+<!-- 
+document._domino_target = "_self";
+function _doClick(v, o, t) {
+  var returnValue = false;
+  var url="/APL/qualidade/scq/SCQTR.nsf/0/3cb58a6fff76ac9b032585970076ae5c?OpenDocument&Click=" + v;
+  if (o.href != null) {
+    o.href = url;
+    returnValue = true;
+  } else {
+    if (t == null)
+      t = document._domino_target;
+    window.open(url, t);
+  }
+  return returnValue;
+}
+// -->
+</script>
+
+<script language="JavaScript" type="text/javascript">
+<!-- 
+function showProblemasLeitura(){
+	with(document.forms[0]){
+		var el;
+		var tabelaProblema = document.getElementById('problemas');
+		var elCodigoProblema = document.getElementById('trouble_code_field');
+		var elDescricaoProblema = document.getElementById('trouble_description_field');
+		if(descricaoProblemas.value != ''){
+			if(descricaoProblemas.length > 0 ){
+				for(var i = 0; i < descricaoProblemas.length; i++){
+					var codProb = codigoProblemas[i].value;
+					var descProb = descricaoProblemas[i].value;					
+	
+					var linha = tabelaProblema.insertRow(-1);
+					coluna = linha.insertCell(-1);
+					el = addFieldElement('AUX_PROBLEMAS','text','',coluna);
+					el.setAttribute('size','5');
+					el.setAttribute('maxLength','5');
+					el.setAttribute('contentEditable', 'false');		
+					el.value = codProb;
+					coluna.width= '15%';
+			
+					coluna = linha.insertCell(-1);
+					el = document.createElement('textarea');
+					el.name = 'AUX_DESCPROBLEMAS';
+					el.rows = '2';
+					el.style.width = "100%";
+					el.setAttribute('contentEditable', 'false');
+					el.value = descProb;
+					coluna.width= '80%';		
+					coluna.appendChild(el);
+			
+					addFieldElement('TX_PROBLEMAS','hidden',codProb,elCodigoProblema);
+					addFieldElement('TX_DESCPROBLEMAS','hidden',descProb,elDescricaoProblema);				
+				}			
+			}else{
+				var codProb = codigoProblemas.value;
+				var descProb = descricaoProblemas.value;					
+
+				var linha = tabelaProblema.insertRow(-1);
+				coluna = linha.insertCell(-1);
+				el = addFieldElement('AUX_PROBLEMAS','text','',coluna);
+				el.setAttribute('size','5');
+				el.setAttribute('maxLength','5');
+				el.setAttribute('contentEditable', 'false');		
+				el.value = codProb;
+				coluna.width= '15%';
+		
+				coluna = linha.insertCell(-1);
+				el = document.createElement('textarea');
+				el.name = 'AUX_DESCPROBLEMAS';
+				el.rows = '2';
+				el.style.width = "100%";
+				el.setAttribute('contentEditable', 'false');
+				el.value = descProb;
+				coluna.width= '80%';		
+				coluna.appendChild(el);
+		
+				addFieldElement('TX_PROBLEMAS','hidden',codProb,elCodigoProblema);
+				addFieldElement('TX_DESCPROBLEMAS','hidden',descProb,elDescricaoProblema);				
+			}
+
+		}
+	}
+}
+
+// -->
+</script>
+</head>
+<body text="#000000" bgcolor="#FFFFFF" onload="setTimeout(&quot;try{PostOpenForm();}catch(error){}&quot;,400);
+frm = document.forms[0];
+//mudaIdioma('ING');
+
+if (frm.LinguaPadrao.value == &quot;POR&quot; ){
+
+   mudaIdioma('POR');
+
+}
+
+
+//selectIt();
+
+" link="#0000FF" alink="#FF0000" vlink="#800080">
+
+<form action=""><input type="hidden" name="ACAO" value="">
+<input type="hidden" name="dbName" value="/APL/qualidade/scq/SCQTR.nsf">
+<input type="hidden" name="UserName" value="CN=Enoque B Castro/OU=HSA/OU=SA/O=HONDA">
+<input type="hidden" name="CommonUserName" value="Enoque B Castro">
+<input type="hidden" name="UserRoles" value="$$WebClient; [LOG]">
+<input type="hidden" name="IntranetServerName" value="">
+<input type="hidden" name="WebServerName" value="">
+<input type="hidden" name="DocUnid" value="3CB58A6FFF76AC9B032585970076AE5C">
+<input type="hidden" name="Area" value="">
+<input type="hidden" name="Nivel" value="">
+<input type="hidden" name="Query_String_Decoded" value="OpenDocument">
+<input type="hidden" name="ExitPath" value="">
+<input type="hidden" name="ExitScript" value=""><input type="hidden" value="104"name="codigoProblemas">
+<input type="hidden" value="VISUAL - BURRS"name="descricaoProblemas">
+<input type="hidden" value=""name="listaDataReplySheet">
+<input type="hidden" value=""name="listaIDReplySheet">
+<input type="hidden" name="Trouble" value="Emitido">
+<input type="hidden" name="Numero_Trouble" value="Kss-0010-20">
+<input type="hidden" name="Arquivado" value="">
+<input type="hidden" name="Form" value="FTR">
+<input type="hidden" name="TX_ULTOBS" value="">
+<input type="hidden" name="BASE_RI" value="APL/qualidade/scq/SCQRI.nsf">
+<input type="hidden" name="TX_REPLYSHEET_DUVIDA" value="">
+<input type="hidden" name="TX_QUANTIDADE_NAO_CHECADA" value="520">
+<input type="hidden" name="TX_ENCAMINHAR_PARA" value="">
+<input type="hidden" name="TX_DELEGACAO" value="">
+<input type="hidden" name="TX_EMITENTE" value="Enoque B Castro">
+<input type="hidden" name="TX_EMITENTE_RS" value="">
+<input type="hidden" name="TX_NUMERO_3G" value="3G00937220">
+<input type="hidden" name="TX_NUM_3G" value="09372">
+<input type="hidden" name="TX_ANO_3G" value="20">
+<input type="hidden" name="TX_FIN_3G" value="3G">
+<input type="hidden" name="NUM_ETAPA" value="2">
+<input type="hidden" name="USUARIO_LOGADO_CN" value="Enoque B Castro">
+<input type="hidden" name="CURRENTUSER_CN" value="Enoque B Castro">
+<input type="hidden" name="Fluxo" value="Gerente">
+<input type="hidden" name="ID_Resposta" value="">
+<input type="hidden" name="ID_Resposta_Prov" value="">
+<input type="hidden" name="Contato" value="TESTE - GILSON, MR. HAYATO HAMADA">
+<input type="hidden" name="TX_NM3G" value="3G00937220">
+<input type="hidden" name="IsEdited" value="0">
+<input type="hidden" name="TX_NUM_CONTROLE" value="">
+<input type="hidden" name="Reposicao" value="NOT NECESSARY">
+<input type="hidden" name="LinguaPadrao" value="POR">
+<input type="hidden"  name="tipoForm" value="FTR">
+<input type="hidden" value=""name="isDocArchive">
+<input type="hidden" value="Salvo"name="isNewDocument" id="isNewDocument"  >
+<input type="hidden" value=""name="rel_ap">
+<input type="hidden" value="" name="rel_st">
+<input type="hidden" value="" name="rel_ob">
+<input type="hidden" value="" name="rel_ano2">
+<input type="hidden" value="" name="rel_seq2">
+<input type="hidden" value=""name="Documento">
+<input type="hidden" value="Enoque B Castro"name="Emitente">
+<input type="hidden" value="" name="LOC">
+<input type="hidden" value="" name="ID_ANEXO_TEMP">
+<input type="hidden" value="3CB58A6FFF76AC9B032585970076AE5C" name="A_ID">
+<input type="hidden" value="" name="A_NOME">
+<input type="hidden" value="" name="A_TAMANHO">
+<input type="hidden" value="" name="Lista_Croqui" id="Lista_Croqui" >
+<input type="hidden" value="" name="Lista_ID_Croqui"  id="Lista_ID_Croqui" >
+<input type="hidden" value="3CB58A6FFF76AC9B032585970076AE5C" name="Id_Documento"  id="Id_Documento" >
+<input type="hidden"  value="1"  id="TX_FORNIVEL"  name="TX_FORNIVEL" >
+<input type="hidden"  value="20200630"  id="TX_DT_EMISSAO_FR"  name="TX_DT_EMISSAO_FR" >
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+ <tr valign="top"><td width="0%" bgcolor="#CC3333">
+  <img src="/APL/qualidade/scq/SCQTR.nsf/lat_esq.gif" width="17" height="17" alt="e">
+ </td>
+ <td width="97%" bgcolor="#CC3333">
+  <b><font  size="2" color="#FFFFFF">Trouble Report - Kss-0010-20</font></b>
+ </td>
+ <td class="label" width="1%" bgcolor="#CC3333">
+  &nbsp;
+ </td>
+<td width="1%" bgcolor="#CC3333" vAlign="bottom">
+   <img src="/APL/qualidade/scq/SCQTR.nsf/lat_dir.gif" width="17" height="17" alt="d" style="vertical-align: bottom">
+ </td>
+</tr>
+</table>
+<br>
+<span id='carregando'>
+<div class="acoes" id="top_acoes_tr_eng">
+<a href="javascript: sairLeitura()">Exit</a>
+<a href="javascript: vis3G()">View 3G</a>
+<a href="javascript: visualizarImpressao()">Print Preview</a>
+<a href="javascript: ReposicaoPeca()">Request a Part Replacement</a>
+</div>
+<div class="acoes" id="top_acoes_tr_por" style="display:none">
+<a href="javascript: sairLeitura()">Sair</a>
+<a href="javascript: vis3G()">Visualizar 3G</a>
+<a href="javascript: visualizarImpressao()">Visualizar Impressão</a>
+<a href="javascript: ReposicaoPeca()">Solicitar Reposição de Peças</a>
+</div>
+<br><div class="corpo">
+<table class="form" width="100%" style="font-weight: bold; background-color: #DEDEDE; border: 2px solid #D10000;">
+ <tr>
+  <td>Status: <font color="navy">Waiting Reply Sheet</font></td>
+<td>
+<img src="/APL/qualidade/scq/SCQTR.nsf/BRA.gif" align="right" class="btnList" onCLick="mudaIdioma('POR')">
+<img src="/APL/qualidade/scq/SCQTR.nsf/EUA.gif" align="right" class="btnList" onCLick="mudaIdioma('ING')">
+</td>
+ </tr>
+</table>
+<div id="TR_DGS" class="corpo">
+<table class="form" width="100%" colspan="6">
+<tr>
+<td valign="top">
+<fieldset>
+<legend>
+<span id="data_issue">Data For Issue</span>
+<span id="dados_emissao" style="display:none">Dados para Emissão</span>
+</legend>
+<table class="form" width="60%" colspan="3">
+<tr>
+<td>
+<span id="to">To</span>
+<span id="destino" style="display:none">Destino</span>
+<td class="data">
+6302564</td><td class="data">Kss KUMAMOTO</td>
+</td>
+<td>
+<span id="contact">Contact.</span>
+<span id="contato" style="display:none">Contato.</span>
+</td><td class="data">TESTE - GILSON; MR. HAYATO HAMADA
+ </td>
+<td align="">
+<span id="block"> Block.</span>
+<span id="bloqueio" style="display:none">Bloqueio.</span>
+</td><td class="data">Estoque, Recebimento</td>
+</tr>
+</table>
+<table class="form" width="90%" colspan="3">
+<tr>
+<td>
+<span id="from">From.</span>
+<span id="origem" style="display:none">Origem.</span>
+</td>
+<td class="data">BR</td>
+<input type="hidden" name="TX_ORIGEM1" value="BR">
+<td>
+<span id="date_issue">Issue Date.</span>
+<span id="data_emissao" style="display:none">Data da Emissão.</span>
+</td>
+<td class="data">June/30/2020</td>
+<td>
+<span id="trouble_no">Trouble No.</span>
+<span id="numero_trouble" style="display:none">Número do Trouble.</span>
+</td>
+<td class="data">Kss-0010-20</td>
+</tr>
+</table>
+</fieldset>
+<br>
+<fieldset>
+<legend>
+<span id="material_data">Material Data.</span>
+<span id="dados_material" style="display:none">Dados Material.</span>
+</legend>
+<table class="form" colspan="6" width="50%">
+<tr>
+<td>
+<span id="part">Part.</span>
+<span id="peca" style="display:none">Peça.</span>
+</td>
+ <td class="data">
+17910K80 C010 M1
+</td>
+<td class = "data">
+<span id="desc_ing" > CABLE COMP A, THROT</span>
+<span id="desc_port" style="display:none" >CABO A ACELERADOR COMP. CHI</span>
+</td>
+</tr>
+ </table>
+</fieldset>
+<br>
+<fieldset>
+<legend>
+<span id="invoice">Invoice.</span>
+<span id="fatura" style="display:none">Fatura.</span>
+</legend>
+ <table class="form" colspan="5" width="100%">
+<tr>
+<td>
+<span id="invoice_no">PC No.</span>
+<span id="numero_fatura" style="display:none">Número da Fatura.</span>
+</td>
+<td class="data">HDAK80F1909003</td>
+<td>
+<span id="lot_no">Lot No.</span>
+<span id="numero_lote" style="display:none">Número do Lote.</span>
+</td>
+<td class="data">112222555</td>
+<td>
+<span id="case_no">Case No.</span>
+<span id="numero_case" style="display:none">Número do Case.</span>
+</td>
+<td class="data">2</td>
+<td>
+<span id="model">Model.</span>
+<span id="modelo" style="display:none">Modelo.</span>
+</td>
+<td class="data">K31</td>
+</tr>
+</table>
+</fieldset>
+<br>
+<fieldset>
+<legend>
+<span id="issuer">Issuer.</span>
+<span id="emitente" style="display:none">Emitente.</span>
+</legend>
+ <table class="form" colspan="3" width="68%">
+<td>
+<span id="issuer_3g">Issuer 3G.</span>
+<span id="emitente_3g" style="display:none">Emitente 3G.</span>
+</td>
+<td class="data"></td>
+<td width="20%">
+<span id="issuer_trouble">Trouble Issuer.</span>
+<span id="emitente_trouble" style="display:none">Emitente Trouble.</span>
+</td>
+<td class="data">Enoque B Castro</td>
+</tr>
+ </table>
+</fieldset>
+<br>
+<fieldset>
+<legend>
+<span id="occurrence_information">Occurrence Information.</span>
+<span id="dados_ocorrencia" style="display:none">Dados da Ocorrência</span>
+</legend>
+ <table class="form" colspan="3" width="40%">
+<tr>
+<td>
+<span id="occurrence_date">Occurrence Date.</span>
+<span id="data_ocorrencia" style="display:none">Data da Ocorrência.</span>
+</td>
+<td class="data">06/30/2020
+<font color="gray">(MM/DD/YYYY)</font>
+</td>
+</tr>
+ </table>
+ <table class="form" colspan="3" width="45%">
+<tr>
+<td>
+<span id="pieces_problem_total_parts">NG Qty. / TTL Qty.</span>
+<span id="pecas_problema_total_pecas" style="display:none">Peças com Problema / Total de Peças.</span>
+</td>
+<td class="data">20 / 520</td>
+</tr>
+ </table>
+ <table class="form" colspan="3" width="80%">
+<tr>
+<td>
+<span id="situation_part">Situation of Parts.</span>
+<span id="situacao_pecas" style="display:none">Situação das Peças.</span>
+</td>
+<td class="data">NOT REPAIRABLE</td>
+<td>
+<span id="replacement">Replacement.</span>
+<span id="reposicao" style="display:none">Reposição.</span>
+</td>
+<td class="data">NOT NECESSARY</td>
+</tr>
+ </table>
+ <table class="form" colspan="3" width="40%">
+<tr>
+<td>
+<span id="condition_next_lot">Condition of Next Lot.</span>
+<span id="condicao_proximo_lote" style="display:none">Condição do Próximo Lote.</span>
+</td>
+<td class="data">Not Checked</td>
+</tr>
+</table>
+</fieldset>
+<br>
+<fieldset>
+<legend>
+<span id="necessary_replacement">Necessary Replacement.</span>
+<span id="necessidade_reposição" style="display:none">Necessidade de Reposição.</span>
+</legend>
+ <table class="form" colspan="3" width="95%">
+<tr>
+<td>
+<span id="quantity">Quantity.</span>
+<span id="quantidade" style="display:none">Quantidade.</span>
+</td>
+<td class="data">520</td>
+<td>
+<span id="color">Color.</span>
+<span id="cor" style="display:none">Cor.</span>
+</td>
+<td class="data"></td>
+<td>
+<span id="date">Data.</span>
+<span id="data" style="display:none">Data.</span>
+</td>
+<td class="data">06/30/2020
+<font color="gray">(MM/DD/YYYY)</font>
+</td>
+</tr>
+</table>
+</fieldset>
+<br>
+<fieldset>
+<legend>
+<span id="shipping_replacement">Board of Replacement.</span>
+<span id="embarque_reposição" style="display:none">Embarque da Reposição</span>
+</legend>
+ <table class="form" colspan="2" width="40%">
+<tr>
+<td>
+<span id="shipping_type">Shipping Type.</span>
+<span id="forma_embarque" style="display:none">Forma de Embarque.</span>
+</td>
+<td class="data">Marítimo (Boat)</td>
+</tr>
+<tr>
+<td>
+<span id="level">Level.</span>
+<span id="grau" style="display:none">Grau.</span>
+</td>
+<td class="data">B</td>
+</tr>
+</table>
+</fieldset>
+</td>
+</tr>
+</table>
+</div>
+<div id="TR_PRO"  class="corpo">
+<table class="form" width="100%" colspan="3">
+<tr>
+<td valign="top">
+<fieldset>
+<legend>
+<span id="section_trouble">Failure </span>
+<span id="secao_problema" style="display:none">Problema </span>
+</legend>
+<table id="problemas" class="form" width="100%" colspan="3">
+ <tr>
+<td width="15%">
+<span id="trouble_code">Failure Mode Code</span>
+<span id="codigo_problema" style="display:none">Código do Problema</span>
+</td>
+<td width="100%">
+<span id="trouble_description">Failure Mode Description</span>
+<span id="descricao_problema" style="display:none">Descrição do Problema</span>
+</td> 
+<td width="1%">&nbsp;</td>
+ </tr>
+</table>
+&nbsp;
+</fieldset>
+</td>
+</tr>
+</table>
+<span id="trouble_code_field" style="display: none"></span>
+<span id="trouble_description_field" style="display: none"></span>
+<script language="JavaScript">
+showProblemasLeitura()
+</script>
+</div><div id="TR_CROQ" class="corpo">
+<table class="form" width="100%" colspan="2">
+<tr>
+<td valign="top">
+<fieldset>
+<legend>
+<span id="attachment_section">Details (Ex:Picture)</span>
+<span id="secao_anexo" style="display:none">Detalhe (Ex:Picture)</span>
+</legend>
+<table id="table_croqui"  class="form" colspan="1" width="100%">
+<td>
+</td>
+</table>
+<table id="croqui" class="form" width="60%" colspan="3">
+<tr>
+<td width="25%">
+<td width="1%">
+</td>
+</tr>
+</table>
+</fieldset>
+</td>
+</tr>
+</table>
+<span id="TR_CROQ" style="display: inline"></span>
+<script language="JavaScript">
+showCroqui(document.getElementById('Lista_Croqui').value,document.getElementById('Lista_ID_Croqui').value,'')
+</script>
+</div><div id="TR_ANE" class="corpo">
+<table class="form" width="100%" colspan="2">
+<tr>
+<td valign="top">
+<fieldset>
+<legend>
+<span id="attachment_section">Attachment</span>
+<span id="secao_anexo" style="display:none">Anexo</span>
+</legend>
+<table class="form" width="100%" colspan="2">
+<tr>
+<span id="analysis">Analysis.</span>
+<span id="analise" style="display:none">Analise.</span>
+</tr>
+<td class="data">TESTES jde</td>
+</tr>
+</table>
+<table class="form" colspan="1" width="100%">
+<td>
+<span id="attachment">Attachment(s):&nbsp;&nbsp; </span>
+<span id="anexo" style="display:none">Anexo(s):&nbsp;&nbsp; </span>
+</td>
+</table>
+<table id="anexos" class="form" width="60%" colspan="3">
+<tr>
+<td width="25%">
+<span id="name_attachment"><font  color="gray">Attachment Name</font></span>
+<span id="nome_arquivo" style="display:none"><font  color="gray">Nome do Arquivo</font></span>
+</td>
+<td width="25%">
+<span id="size_attachment"><font  color="gray">Attachment Size</font></span>
+<span id="tamanho_arquivo" style="display:none"><font  color="gray">Tamanho do Arquivo</font></span>
+</td>
+<td width="1%">
+<span id="view"><font  color="gray">View</font></span>
+<span id="visualizar" style="display:none"><font  color="gray">Visualizar</font></span>
+</td>
+</tr>
+</table>
+</fieldset>
+</td>
+</tr>
+</table>
+<span id="TR_ANEXOS" style="display: inline"></span>
+<script language="JavaScript">
+listaAnexos(true);
+</script>
+</div>
+<div id="TR_REP" class="corpo">
+<fieldset class="form">
+<legend>
+<span id="history_reply_sheet">History Reply Sheet</span>
+<span id="historico_reply_sheet" style="display:none">Histórico de Reply Sheet</span>
+</legend>
+<table id="replySheet" colspan="4" width="50%" class="form">
+<tr>
+<td>Reply Sheet</td>
+<td>
+<span id="date_reply_sheet">Date</span>
+<span id="data_reply_sheet" style="display:none">Data</span>
+</td>
+<td>
+<span id="view_reply_sheet">View</span>
+<span id="visualizar_reply_sheet" style="display:none">Visualizar</span>
+</td>
+</tr>
+</table>
+</fieldset>
+<span id="TR_REPLYSHEET" style="display: inline"></span>
+<script language="JavaScript">
+listaReplySheet()
+</script>
+</div>
+<div id="TR_APR" class="corpo">
+<fieldset class="form">
+<legend>
+<span id="approval_history">Approval History</span>
+<span id="historico_aprovacoes" style="display:none">Histórico de Aprovações</span>
+</legend>
+<table colspan="3" width="100%" class="form">
+<tr>
+<td>
+<span id="approver">Approver</span>
+<span id="aprovador" style="display:none">Aprovador</span>
+</td>
+<td>
+<span id="action_aprover">Action</span>
+<span id="acoes_aprovador" style="display:none">Ações</span>
+</td>
+<td>
+<span id="date_aprover">Date</span>
+<span id="data_aprovador" style="display:none">Data</span>
+</td>
+<td>
+<span id="comments">Comments</span>
+<span id="comentario" style="display:none">Comentário</span>
+</td>
+</tr>
+<tr>
+  <td class="data">Enoque B Castro</td>
+  <td class="data">Trouble Report approved</td>
+  <td class="data">06/30/2020 18:42:04</td>
+  <td class="data">-</td>
+ </tr><tr>
+  <td class="data">Enoque B Castro</td>
+  <td class="data">Trouble Report approved</td>
+  <td class="data">06/30/2020 18:42:15</td>
+  <td class="data">-</td>
+ </tr><tr>
+  <td class="data">Enoque B Castro</td>
+  <td class="data">Trouble Report approved</td>
+  <td class="data">06/30/2020 18:42:24</td>
+  <td class="data">-</td>
+ </tr>
+</table>
+</fieldset>
+</div><div id="TR_HIS" class="corpo">
+<fieldset class="form">
+<legend>
+<span id="history_action">Action's History</span>
+<span id="historico_acoes" style="display:none">Histórico de Ações</span>
+</legend>
+<table colspan="4" width="100%" class="form">
+<tr>
+<td>
+<span id="history_action_date">Date</span>
+<span id="data_historico_acoes" style="display:none">Data</span>
+</td>
+<td>
+<span id="history_action_user">User</span>
+<span id="usuario_historico_acoes" style="display:none">Usuário</span>
+</td>
+<td>
+<span id="action_user">Action</span>
+<span id="acoes_usuario" style="display:none">Ações</span>
+</td>
+<td>
+<span id="history_action_note">Note</span>
+<span id="historico_acoes_observacao" style="display:none">Observação</span>
+</td>
+</tr>
+<tr>
+  <td class="data">06/30/2020 18:36:19</td>
+  <td class="data">Enoque B Castro</td>
+  <td class="data">Trouble Report created</td>
+  <td class="data">-</td>
+ </tr><tr>
+  <td class="data">06/30/2020 18:37:11</td>
+  <td class="data">Enoque B Castro</td>
+  <td class="data">Trouble Report updated</td>
+  <td class="data">-</td>
+ </tr><tr>
+  <td class="data">06/30/2020 18:40:19</td>
+  <td class="data">Enoque B Castro</td>
+  <td class="data">Trouble Report updated</td>
+  <td class="data">-</td>
+ </tr><tr>
+  <td class="data">06/30/2020 18:40:37</td>
+  <td class="data">Enoque B Castro</td>
+  <td class="data">Trouble Report updated</td>
+  <td class="data">-</td>
+ </tr><tr>
+  <td class="data">06/30/2020 18:40:44</td>
+  <td class="data">Enoque B Castro</td>
+  <td class="data">Trouble Report sent to approval</td>
+  <td class="data">-</td>
+ </tr><tr>
+  <td class="data">06/30/2020 18:42:04</td>
+  <td class="data">Enoque B Castro</td>
+  <td class="data">Trouble Report approved</td>
+  <td class="data">-</td>
+ </tr><tr>
+  <td class="data">06/30/2020 18:42:15</td>
+  <td class="data">Enoque B Castro</td>
+  <td class="data">Trouble Report approved</td>
+  <td class="data">-</td>
+ </tr><tr>
+  <td class="data">06/30/2020 18:42:24</td>
+  <td class="data">Enoque B Castro</td>
+  <td class="data">Trouble Report approved</td>
+  <td class="data">-</td>
+ </tr><tr>
+  <td class="data">06/30/2020 18:42:26</td>
+  <td class="data"></td>
+  <td class="data">Aware</td>
+  <td class="data">-</td>
+ </tr>
+</table>
+</fieldset>
+</div>
+</div>
+<br>
+<div class="acoes" id="bottom_acoes_tr_eng">
+<a href="javascript: sairLeitura()">Exit</a>
+<a href="javascript: vis3G()">View 3G</a>
+<a href="javascript: visualizarImpressao()">Print Preview</a>
+</div>
+<div class="acoes" id="bottom_acoes_tr_por" style="display:none">
+<a href="javascript: sairLeitura()">Sair</a>
+<a href="javascript: vis3G()">Visualizar 3G</a>
+<a href="javascript: visualizarImpressao()">Visualizar Impressão</a>
+</div>
+</span></form>
+</body>
+</html>
