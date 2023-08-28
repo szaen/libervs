@@ -1,0 +1,575 @@
+function mudaIdioma(idioma)
+{
+    var arrayCampos;
+    //Hydra 2023 23/08/2023 - Início
+    //arrayCampos = new Array(120);  //114
+    arrayCampos = new Array(150);
+    //Hydra 2023 23/08/2023 - Término
+    arrayCamposDel = new Array(1);
+    arrayCampos3G = new Array(1);
+    var flag;	
+    var cont = 0;
+
+
+	if(idioma == "POR"){
+	 	arrayCampos[cont] = "data_issue";
+		cont += 1;
+	 	arrayCampos[cont] = "dados_emissao";
+	 	cont += 1;
+	 	arrayCampos[cont] = "to";
+	 	cont += 1;
+	 	arrayCampos[cont] = "destino";
+	 	cont += 1;
+	 	arrayCampos[cont] = "contact";
+	 	cont += 1;
+	 	arrayCampos[cont] = "contato";
+	 	cont += 1;
+	 	
+	 	if(document.forms[0].Trouble.value == "Recebido"){
+	 		arrayCampos[cont] = "control";
+	 		cont += 1;
+	 		arrayCampos[cont] = "controle";
+	 		cont += 1;
+		 }
+		  
+		if(document.forms[0].Trouble.value == "Emitido"){ 
+		 	arrayCampos[cont] = "block";
+	 		cont += 1;
+	 		arrayCampos[cont] = "bloqueio";
+			cont += 1;
+		}                    
+		 
+	 	arrayCampos[cont] = "from";
+	 	cont += 1;
+	 	arrayCampos[cont] = "origem";
+	 	cont += 1;
+	 	arrayCampos[cont] = "date_issue";
+	 	cont += 1;
+	 	arrayCampos[cont] = "data_emissao";
+	 	cont += 1;
+	 	arrayCampos[cont] = "trouble_no";
+	 	cont += 1;
+	 	arrayCampos[cont] = "numero_trouble";
+	 	cont += 1;
+	 	arrayCampos[cont] = "material_data";
+	 	cont += 1;
+	 	arrayCampos[cont] = "dados_material";
+	 	cont += 1;
+	 	arrayCampos[cont] = "supplier";
+	 	cont += 1;
+	 	arrayCampos[cont] = "fornecedor";
+	 	cont += 1;
+	 	arrayCampos[cont] = "part";
+	 	cont += 1;
+	 	arrayCampos[cont] = "peca";
+	 	cont += 1;
+	 	arrayCampos[cont] = "desc_ing";
+	 	cont += 1;
+	 	arrayCampos[cont] = "desc_port";
+	 	cont += 1;
+	 	arrayCampos[cont] = "invoice";
+	 	cont += 1;
+	 	arrayCampos[cont] = "fatura";
+	 	cont += 1;
+	 	arrayCampos[cont] = "invoice_no";
+	 	cont += 1;
+	 	arrayCampos[cont] = "numero_fatura";
+	 	cont += 1;
+	 	arrayCampos[cont] = "lot_no";
+	 	cont += 1;
+	 	arrayCampos[cont] = "numero_lote";
+	 	cont += 1;
+	 	arrayCampos[cont] = "case_no";
+	 	cont += 1;
+	 	arrayCampos[cont] = "numero_case";
+	 	cont += 1;
+	 	arrayCampos[cont] = "model";
+	 	cont += 1;
+	 	arrayCampos[cont] = "modelo";
+	 	cont += 1;
+	 	arrayCampos[cont] = "issuer";
+	 	cont += 1;
+	 	arrayCampos[cont] = "emitente";
+	 	cont += 1;
+	 	arrayCampos[cont] = "issuer_trouble";
+	 	cont += 1;
+	 	arrayCampos[cont] = "emitente_trouble";
+	 	cont += 1;
+	 	arrayCampos[cont] = "occurrence_information";
+	 	cont += 1;
+	 	arrayCampos[cont] = "dados_ocorrencia";
+	 	cont += 1;
+	 	arrayCampos[cont] = "occurrence_date";
+	 	cont += 1;
+	 	arrayCampos[cont] = "data_ocorrencia";
+	 	cont += 1;
+	 	arrayCampos[cont] = "pieces_problem_total_parts";
+	 	cont += 1;
+	 	arrayCampos[cont] = "pecas_problema_total_pecas";
+	 	cont += 1;
+	 	arrayCampos[cont] = "situation_part";
+	 	cont += 1;
+	 	arrayCampos[cont] = "situacao_pecas";
+	 	cont += 1;
+	 	arrayCampos[cont] = "replacement";
+	 	cont += 1;
+	 	arrayCampos[cont] = "reposicao";
+	 	cont += 1;
+	 	arrayCampos[cont] = "condition_next_lot";
+	 	cont += 1;
+	 	arrayCampos[cont] = "condicao_proximo_lote";
+	 	cont += 1;
+	 	arrayCampos[cont] = "necessary_replacement";
+	 	cont += 1;
+	 	arrayCampos[cont] = "necessidade_reposição";
+	 	cont += 1;
+	 	arrayCampos[cont] = "quantity";
+	 	cont += 1;
+	 	arrayCampos[cont] = "quantidade";
+	 	cont += 1;
+	 	arrayCampos[cont] = "color";
+	 	cont += 1;
+	 	arrayCampos[cont] = "cor";
+	 	cont += 1;
+	 	arrayCampos[cont] = "date";
+	 	cont += 1;
+	 	arrayCampos[cont] = "data";
+	 	cont += 1;
+	 	arrayCampos[cont] = "shipping_replacement";
+	 	cont += 1;
+	 	arrayCampos[cont] = "embarque_reposição";
+	 	cont += 1;
+	 	arrayCampos[cont] = "shipping_type";
+	 	cont += 1;
+	 	arrayCampos[cont] = "forma_embarque";
+	 	cont += 1;
+	 	//Hydra 2023 23/08/2023 - Início
+	 	arrayCampos[cont] = "classification";
+	 	cont += 1;
+	 	arrayCampos[cont] = "classificacao";
+	 	cont += 1;
+	 	//Hydra 2023 23/08/2023 - Término
+	 	arrayCampos[cont] = "level";
+	 	cont += 1;
+	 	arrayCampos[cont] = "grau";
+	 	cont += 1;
+	 	arrayCampos[cont] = "section_trouble";
+	 	cont += 1;
+	 	arrayCampos[cont] = "secao_problema";
+	 	cont += 1;
+	 	arrayCampos[cont] = "trouble_code";
+	 	cont += 1;
+	 	arrayCampos[cont] = "codigo_problema";
+	 	cont += 1;
+	 	arrayCampos[cont] = "trouble_description";
+	 	cont += 1;
+	 	arrayCampos[cont] = "descricao_problema";
+	 	cont += 1;
+	 	arrayCampos[cont] = "analysis";
+	 	cont += 1;
+	 	arrayCampos[cont] = "analise";
+	 	cont += 1;
+	 	arrayCampos[cont] = "attachment";	 	
+	 	cont += 1;
+		arrayCampos[cont] = "anexo";
+		cont += 1;
+	 	arrayCampos[cont] = "name_attachment";
+	 	cont += 1;
+	 	arrayCampos[cont] = "nome_arquivo";	 	
+	 	cont += 1;
+	 	arrayCampos[cont] = "size_attachment";	 	
+	 	cont += 1;
+		arrayCampos[cont] = "tamanho_arquivo";
+		cont += 1;
+	 	arrayCampos[cont] = "delete";
+	 	cont += 1;
+		arrayCampos[cont] = "excluir";
+		cont += 1;
+	 	arrayCampos[cont] = "view";
+	 	cont += 1;
+		arrayCampos[cont] = "visualizar";
+		cont += 1;
+		arrayCampos[cont] = "trouble_delegation";
+		cont += 1;
+		arrayCampos[cont] = "delegar_para";
+		cont += 1;
+	 	arrayCampos[cont] = "history_reply_sheet";
+	 	cont += 1;
+	 	arrayCampos[cont] = "historico_reply_sheet";
+	 	cont += 1;
+	 	arrayCampos[cont] = "date_reply_sheet";
+	 	cont += 1;
+	 	arrayCampos[cont]= "data_reply_sheet";
+	 	cont += 1;
+	 	arrayCampos[cont] = "view_reply_sheet";
+	 	cont += 1;
+	 	arrayCampos[cont] = "visualizar_reply_sheet";
+	 	cont += 1;
+	 	arrayCampos[cont] = "approval_history";
+	 	cont += 1;
+		arrayCampos[cont] = "historico_aprovacoes";
+		cont += 1;
+	 	arrayCampos[cont] = "approver";
+	 	cont += 1;
+	 	arrayCampos[cont] = "aprovador";
+	 	cont += 1;
+	 	arrayCampos[cont] = "action_aprover";
+	 	cont += 1;
+	 	arrayCampos[cont] = "acoes_aprovador";
+	 	cont += 1;	 	
+	 	arrayCampos[cont] = "date_aprover";
+	 	cont += 1;
+	 	arrayCampos[cont] = "data_aprovador";
+	 	cont += 1;
+	 	arrayCampos[cont] = "comments";
+	 	cont += 1;
+	 	arrayCampos[cont] = "comentario";
+	 	cont += 1;
+	 	arrayCampos[cont] = "history_action";
+	 	cont += 1;
+	 	arrayCampos[cont] = "historico_acoes";
+	 	cont += 1;
+	 	arrayCampos[cont] = "history_action_date";
+	 	cont += 1;
+	 	arrayCampos[cont] = "data_historico_acoes";
+	 	cont += 1;
+	 	arrayCampos[cont] = "history_action_user";
+	 	cont += 1;
+	 	arrayCampos[cont] = "usuario_historico_acoes";
+	 	cont += 1;
+	 	arrayCampos[cont] = "action_user";
+	 	cont += 1;
+	 	arrayCampos[cont] = "acoes_usuario";
+	 	cont += 1;
+	 	arrayCampos[cont] = "history_action_note";
+	 	cont += 1;
+	 	arrayCampos[cont] = "historico_acoes_observacao";	 	
+	 	cont += 1;
+	 	arrayCampos[cont] = "attachment_section";
+	 	cont += 1;
+	 	arrayCampos[cont] = "secao_anexo";
+	 	cont += 1;
+	 	arrayCampos[cont] = "top_acoes_tr_eng";
+	 	cont += 1;
+	 	arrayCampos[cont] = "top_acoes_tr_por";
+	 	cont += 1;
+	 	arrayCampos[cont] = "bottom_acoes_tr_eng";
+	 	cont += 1;
+	 	arrayCampos[cont] = "bottom_acoes_tr_por";
+
+	 	if(document.forms[0].Trouble.value == "Recebido"){
+	 		if(document.forms[0].NUM_ETAPA.value > 1){
+			 	arrayCamposDel[0] = "trouble_delegation";					
+			 	arrayCamposDel[1] = "delegacao_trouble";
+			 	arrayCamposDel[2] = "delegating_for";					
+			 	arrayCamposDel[3] = "delegar_para";
+			 	arrayCampos = arrayCampos.concat( arrayCamposDel);		 	
+				for( var j = 0 ; j < frm.TX_DELEGACAO.length ; j++ ){
+					if( frm.TX_DELEGACAO[j].selected) {
+						if(frm.TX_DELEGACAO[j].text == "Supplier"){
+						 	arrayCamposDel[0] = "supplier_delegating";
+						 	arrayCamposDel[1] = "delegar_fornecedor";
+						 	arrayCampos = arrayCampos.concat( arrayCamposDel );					 	
+						 	flag = true;
+							break;				
+						}else if(frm.TX_DELEGACAO[j].text == "Internal Area"){
+						 	arrayCamposDel[0] = "internal_area";	 	
+						 	arrayCamposDel[1] = "delegar_ccusto";
+						 	arrayCampos = arrayCampos.concat( arrayCamposDel );					 	
+						 	flag = true;
+							break;				
+						}				
+					}
+				}			
+			}	
+		}
+		 	if(document.forms[0].Trouble.value == "Emitido"){
+			 	arrayCampos3G[0] = "issuer_3g";
+			 	arrayCampos3G[1] = "emitente_3g";
+			 	arrayCampos = arrayCampos.concat(arrayCampos3G);			 			 	
+			 }
+ 	}else{
+	 	arrayCampos[cont] = "dados_emissao";
+	 	cont += 1;
+	 	arrayCampos[cont] = "data_issue";
+	 	cont += 1;
+	 	arrayCampos[cont] = "destino";
+	 	cont += 1;
+	 	arrayCampos[cont] = "to";
+	 	cont += 1;
+	 	arrayCampos[cont] = "contato";
+	 	cont += 1;
+	 	arrayCampos[cont] = "contact";
+	 	cont += 1;
+	 	
+	 	if(document.forms[0].Trouble.value == "Recebido"){
+	 		arrayCampos[cont] = "controle";
+	 		cont += 1;
+	 		arrayCampos[cont] = "control";
+	 		cont += 1;
+			                    
+		 }
+		 
+		if(document.forms[0].Trouble.value == "Emitido"){
+	 		arrayCampos[cont] = "bloqueio";
+	 		cont += 1;
+	 		arrayCampos[cont] = "block";
+			cont += 1;                    
+		 }
+		 
+	 	arrayCampos[cont] = "origem";
+	 	cont += 1;
+	 	arrayCampos[cont] = "from";
+	 	cont += 1;
+	 	arrayCampos[cont] = "data_emissao";	 	
+	 	cont += 1;
+		arrayCampos[cont] = "date_issue";
+		cont += 1;
+	 	arrayCampos[cont] = "numero_trouble";
+	 	cont += 1;
+	 	arrayCampos[cont] = "trouble_no";
+	 	cont += 1;
+	 	arrayCampos[cont] = "dados_material";
+	 	cont += 1;
+	 	arrayCampos[cont] = "material_data";
+	 	cont += 1;
+	 	arrayCampos[cont] = "fornecedor";
+	 	cont += 1;
+	 	arrayCampos[cont] = "supplier";
+	 	cont += 1;
+	 	arrayCampos[cont] = "peca";
+	 	cont += 1;
+	 	arrayCampos[cont] = "part";
+	 	cont += 1;
+	 	arrayCampos[cont] = "desc_port";
+	 	cont += 1;
+	 	arrayCampos[cont] = "desc_ing";
+	 	cont += 1;
+	 	arrayCampos[cont] = "fatura";
+	 	cont += 1;
+	 	arrayCampos[cont] = "invoice";
+	 	cont += 1;
+	 	arrayCampos[cont] = "numero_fatura";	 	
+	 	cont += 1;
+		arrayCampos[cont] = "invoice_no";
+		cont += 1;
+	 	arrayCampos[cont] = "numero_lote";	 	
+	 	cont += 1;
+	 	arrayCampos[cont] = "lot_no";
+	 	cont += 1;
+	 	arrayCampos[cont] = "numero_case";
+	 	cont += 1;
+	 	arrayCampos[cont] = "case_no";
+	 	cont += 1;
+	 	arrayCampos[cont] = "modelo";	 	
+	 	cont += 1;
+	 	arrayCampos[cont] = "model";
+	 	cont += 1;
+	 	arrayCampos[cont] = "emitente";
+	 	cont += 1;
+	 	arrayCampos[cont] = "issuer";
+	 	cont += 1;
+	 	arrayCampos[cont] = "emitente_trouble";
+	 	cont += 1;
+	 	arrayCampos[cont] = "issuer_trouble";
+	 	cont += 1;
+	 	arrayCampos[cont] = "dados_ocorrencia";
+	 	cont += 1;
+	 	arrayCampos[cont] = "occurrence_information";
+	 	cont += 1;
+	 	arrayCampos[cont] = "data_ocorrencia";
+	 	cont += 1;
+	 	arrayCampos[cont] = "occurrence_date";
+	 	cont += 1;
+	 	arrayCampos[cont] = "pecas_problema_total_pecas";
+	 	cont += 1;
+	 	arrayCampos[cont] = "pieces_problem_total_parts";
+	 	cont += 1;
+	 	arrayCampos[cont] = "situacao_pecas";
+	 	cont += 1;
+	 	arrayCampos[cont] = "situation_part";
+	 	cont += 1;
+	 	arrayCampos[cont] = "reposicao";	 	
+	 	cont += 1;
+	 	arrayCampos[cont] = "replacement";
+	 	cont += 1;
+	 	arrayCampos[cont] = "condicao_proximo_lote";
+	 	cont += 1;
+	 	arrayCampos[cont] = "condition_next_lot";
+	 	cont += 1;
+	 	arrayCampos[cont] = "necessidade_reposição";
+	 	cont += 1;
+	 	arrayCampos[cont] = "necessary_replacement";
+	 	cont += 1;
+	 	arrayCampos[cont] = "quantidade";	 	
+	 	cont += 1;
+	 	arrayCampos[cont] = "quantity";
+	 	cont += 1;
+	 	arrayCampos[cont] = "cor";	 	
+	 	cont += 1;
+	 	arrayCampos[cont] = "color";
+	 	cont += 1;
+	 	arrayCampos[cont] = "data";
+	 	cont += 1;
+	 	arrayCampos[cont] = "date";
+	 	cont += 1;
+	 	arrayCampos[cont] = "embarque_reposição";
+	 	cont += 1;
+	 	arrayCampos[cont] = "shipping_replacement";
+	 	cont += 1;
+	 	arrayCampos[cont] = "forma_embarque";	 	
+	 	cont += 1;
+	 	arrayCampos[cont] = "shipping_type";
+	 	cont += 1;
+	 	//Hydra 2023 23/08/2023 - Início
+	 	arrayCampos[cont] = "classificacao";
+	 	cont += 1;
+	 	arrayCampos[cont] = "classification";
+	 	cont += 1;
+	 	//Hydra 2023 23/08/2023 - Término
+	 	arrayCampos[cont] = "grau";	 	
+	 	cont += 1;
+	 	arrayCampos[cont] = "level";
+	 	cont += 1;
+	 	arrayCampos[cont] = "secao_problema";
+	 	cont += 1;
+	 	arrayCampos[cont] = "section_trouble";
+	 	cont += 1;
+	 	arrayCampos[cont] = "codigo_problema";
+	 	cont += 1;
+	 	arrayCampos[cont] = "trouble_code";
+	 	cont += 1;
+	 	arrayCampos[cont] = "descricao_problema";	 	
+	 	cont += 1;
+	 	arrayCampos[cont] = "trouble_description";
+	 	cont += 1;
+	 	arrayCampos[cont] = "analise";	 	
+	 	cont += 1;
+	 	arrayCampos[cont] = "analysis";
+	 	cont += 1;
+	 	arrayCampos[cont] = "anexo";
+	 	cont += 1;
+		arrayCampos[cont] = "attachment";
+		cont += 1;
+	 	arrayCampos[cont] = "nome_arquivo";
+	 	cont += 1;
+	 	arrayCampos[cont] = "name_attachment";
+	 	cont += 1;
+	 	arrayCampos[cont] = "tamanho_arquivo";
+	 	cont += 1;
+		arrayCampos[cont] = "size_attachment";
+		cont += 1;
+	 	arrayCampos[cont] = "excluir";
+	 	cont += 1;
+		arrayCampos[cont] = "delete";
+		cont += 1;
+	 	arrayCampos[cont] = "visualizar";
+	 	cont += 1;
+		arrayCampos[cont] = "view";
+		cont += 1;
+	 	arrayCampos[cont] = "delegacao_trouble";
+	 	cont += 1;
+	 	arrayCampos[cont] = "trouble_delegation";
+	 	cont += 1;
+	 	arrayCampos[cont] = "delegar_para";	 	
+	 	cont += 1;
+	 	arrayCampos[cont] = "delegating_for";
+	 	cont += 1;
+	 	arrayCampos[cont] = "historico_reply_sheet";
+	 	cont += 1;
+	 	arrayCampos[cont] = "history_reply_sheet";
+	 	cont += 1;
+	 	arrayCampos[cont]= "data_reply_sheet";
+	 	cont += 1;
+	 	arrayCampos[cont] = "date_reply_sheet";
+	 	cont += 1;
+	 	arrayCampos[cont] = "visualizar_reply_sheet";
+	 	cont += 1;
+	 	arrayCampos[cont] = "view_reply_sheet";
+	 	cont += 1;
+		arrayCampos[cont] = "historico_aprovacoes";
+		cont += 1;
+	 	arrayCampos[cont] = "approval_history";
+	 	cont += 1;
+	 	arrayCampos[cont] = "aprovador";	
+	 	cont += 1;
+	 	arrayCampos[cont] = "approver";
+	 	cont += 1;
+	 	arrayCampos[cont] = "acoes_aprovador";	 	
+	 	cont += 1;	 	
+	 	arrayCampos[cont] = "action_aprover";
+	 	cont += 1;
+	 	arrayCampos[cont] = "data_aprovador";	 	
+	 	cont += 1;	 		 	
+	 	arrayCampos[cont] = "date_aprover";
+	 	cont += 1;
+	 	arrayCampos[cont] = "comentario";
+	 	cont += 1;
+	 	arrayCampos[cont] = "comments";
+	 	cont += 1;
+	 	arrayCampos[cont] = "historico_acoes";
+	 	cont += 1;
+	 	arrayCampos[cont] = "history_action";
+	 	cont += 1;
+	 	arrayCampos[cont] = "data_historico_acoes";
+	 	cont += 1;
+	 	arrayCampos[cont] = "history_action_date";
+	 	cont += 1;
+	 	arrayCampos[cont] = "usuario_historico_acoes";
+	 	cont += 1;
+	 	arrayCampos[cont] = "history_action_user";
+	 	cont += 1;
+	 	arrayCampos[cont] = "acoes_usuario";
+	 	cont += 1;
+	 	arrayCampos[cont] = "action_user";
+	 	cont += 1;
+	 	arrayCampos[cont] = "historico_acoes_observacao";	 		 	
+	 	cont += 1;
+	 	arrayCampos[cont] = "history_action_note";
+	 	cont += 1;
+	 	arrayCampos[cont] = "secao_anexo";	 	
+	 	cont += 1;
+	 	arrayCampos[cont] = "attachment_section";
+	 	cont += 1;
+	 	arrayCampos[cont] = "top_acoes_tr_por";
+	 	cont += 1;
+	 	arrayCampos[cont] = "top_acoes_tr_eng";
+	 	cont += 1;
+	 	arrayCampos[cont] = "bottom_acoes_tr_por";
+	 	cont += 1;
+	 	arrayCampos[cont] = "bottom_acoes_tr_eng";
+           
+		 		
+	 	if(document.forms[0].Trouble.value == "Recebido"){
+	 		if(document.forms[0].NUM_ETAPA.value > 1){
+		 		arrayCamposDel[0] = "trouble_delegation";					
+		 		arrayCamposDel[1] = "delegacao_trouble";
+			 	arrayCamposDel[2] = "delegating_for";					
+			 	arrayCamposDel[3] = "delegar_para";		
+			 	arrayCampos = arrayCampos.concat( arrayCamposDel );
+			 	
+				for( var j = 0 ; j < frm.TX_DELEGACAO.length ; j++ ){
+					if( frm.TX_DELEGACAO[j].selected) {
+						if(frm.TX_DELEGACAO[j].text == "Supplier"){
+					 		arrayCamposDel[0] = "supplier_delegating";
+						 	arrayCamposDel[1] = "delegar_fornecedor";
+				 		 	arrayCampos = arrayCampos.concat( arrayCamposDel );
+							break;				
+						}else if(frm.TX_DELEGACAO[j].text == "Internal Area"){
+						 	arrayCamposDel[0] = "internal_area";
+						 	arrayCamposDel[1] = "delegar_ccusto";	 	
+					 		arrayCampos = arrayCampos.concat( arrayCamposDel );
+							break;				
+						}				
+					}
+				}	
+			}	
+		}		
+			if(document.forms[0].Trouble.value == "Emitido"){
+			 	arrayCampos3G[0] = "emitente_3g";		
+			 	arrayCampos3G[1] = "issuer_3g";
+			 	arrayCampos = arrayCampos.concat(arrayCampos3G);			 	
+			 }
+	 }
+	JS_Funcoes_fctMudaIdioma(arrayCampos)	 
+}
