@@ -1,0 +1,10 @@
+function JS_Funcoes_fctMudaIdioma(campos){
+	for( var i = 0 ; i < campos.length ; i=i+2 ){
+		testecampo = campos[i];
+		teste = document.getElementById(eval('"'+campos[i]+'"'));
+		if(document.getElementById(eval('"'+campos[i]+'"')) != null){
+			document.getElementById(eval('"'+campos[i]+'"')).style.display = "none";
+			document.getElementById(eval('"'+campos[i+1]+'"')).style.display = "block";		
+		}	
+	}
+}
