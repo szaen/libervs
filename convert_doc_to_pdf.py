@@ -25,6 +25,10 @@ The conversion relies on ``libreoffice``/``soffice`` being available in the
 system path.  On Windows the LibreOffice installation usually exposes the
 binary as ``soffice.exe``.  Feel free to pass the explicit path through the
 ``--office-binary`` argument if the executable cannot be found automatically.
+
+Quando executado no Windows, os PDFs convertidos são enviados por padrão para
+``C:\\Users\\16990914807\\OneDrive - Grupo Edson Queiroz\\Projeto Gênesis - 14 - GEQ WORKS\\2. LAKE OF DOCS\\ESPECIFICAÇÕES FUNCIONAIS``.
+Em outros sistemas operacionais o diretório padrão continua sendo ``./pdf``.
 """
 
 from __future__ import annotations
@@ -43,6 +47,18 @@ from typing import Iterable, List
 
 
 LOGGER = logging.getLogger(__name__)
+
+
+WINDOWS_DEFAULT_OUTPUT_DIRECTORY = Path(
+    "C:/Users/16990914807/OneDrive - Grupo Edson Queiroz/"
+    "Projeto Gênesis - 14 - GEQ WORKS/2. LAKE OF DOCS/"
+    "ESPECIFICAÇÕES FUNCIONAIS"
+)
+
+if os.name == "nt":
+    DEFAULT_OUTPUT_DIRECTORY = WINDOWS_DEFAULT_OUTPUT_DIRECTORY
+else:
+    DEFAULT_OUTPUT_DIRECTORY = Path("pdf")
 
 
 class ConversionError(RuntimeError):
@@ -266,11 +282,15 @@ def parse_args(argv: List[str]) -> argparse.Namespace:
         type=Path,
         help="Diretório onde os documentos serão procurados.",
     )
+    default_output = DEFAULT_OUTPUT_DIRECTORY
     parser.add_argument(
         "--output",
         type=Path,
-        default=Path("pdf"),
-        help="Diretório de saída para os PDFs (padrão: ./pdf).",
+        default=default_output,
+        help=(
+            "Diretório de saída para os PDFs "
+            f"(padrão: {default_output})."
+        ),
     )
     parser.add_argument(
         "--office-binary",
